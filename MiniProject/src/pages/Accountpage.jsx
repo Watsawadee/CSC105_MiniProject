@@ -16,6 +16,7 @@ function Accountpage() {
 
 export default Accountpage;
 
+// Style
 const Header = {
     color: "#333333",
     fontFamily: "Quicksand",

@@ -1,10 +1,7 @@
 import React from "react";
 import NavBar from "../components/NavBar";
-import { Box, Typography, Grid, Card, ListItem, Button } from "@mui/material";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-// import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Box, Typography, Grid, Card, ListItem, Button, Divider } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import ImageList from "@mui/material/ImageList";
@@ -12,78 +9,140 @@ import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
 
+import { useState } from "react";
+import SearchIcon from "@mui/icons-material/Search";
+import TextField from "@mui/material/TextField";
+
+const SearchBar = ({ setSearchQuery }) => (
+    <form>
+        <IconButton type="submit" aria-label="search">
+            <SearchIcon style={{ fill: "blue" }} />
+        </IconButton>
+        <TextField
+            onInput={(e) => {
+                setSearchQuery(e.target.value);
+            }}
+            placeholder="Salad, Breakfast, Vegetarian, Gluten-Free"
+            size="small"
+        />
+
+    </form>
+);
+
+const filterData = (query, itemData) => {
+    if (!query) {
+        return itemData;
+    } else {
+        return itemData.filter((item) => item.toLowerCase().includes(query));
+    }
+};
+
+// const data = [
+//     "Paris",
+//     "London",
+//     "New York",
+//     "Tokyo",
+//     "Berlin",
+//     "Buenos Aires",
+//     "Cairo",
+//     "Canberra",
+//     "Rio de Janeiro",
+//     "Dublin"
+// ];
+
 function Findpage() {
+    const [searchQuery, setSearchQuery] = useState("");
+    const dataFiltered = filterData(searchQuery, itemData);
     return (
         <Box sx={{ width: "100vw", padding: "0" }}>
+            <div
+                style={{
+                    display: "flex",
+                    alignSelf: "center",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                    padding: 20
+                }}
+            >
+                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                <div style={{ padding: 3 }}>
+                    {itemData.map((item) => (
+                        <div
+                            style={{
+                                padding: 5,
+                                justifyContent: "normal",
+                                fontSize: 20,
+                                color: "blue",
+                                margin: 1,
+                                width: "250px",
+                                BorderColor: "green",
+                                borderWidth: "10px"
+                            }}
+                            key={item.title}
+                        >
+                            {/* {d} */}
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+
             <NavBar />
             <Typography sx={Head}> Find a Recipe </Typography>
-
             <Box sx={Content}>
-                <Typography sx={Title}> Recommends</Typography>
-                {/* <CardMedia
-                    component="img"
-                    sx={{ width: "8", height: "250px" }}
-                    image="https://img.taste.com.au/WU4WfY8W/taste/2022/11/best-ever-italian-salad-recipe-1-183293-1.jpg"
-                    alt="Italian Salad"
-                /> */}
-
-                <ImageList sx={Group_Recipe}>
-                    {itemData.map((item) => (
-                        <ImageListItem key={item.img}>
-                            <img
-                                src={`${item.img}?w=248&fit=crop&auto=format`}
-                                srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                alt={item.title}
-                            />
-                            <ImageListItemBar
-                                actionIcon={
-                                    <IconButton
-                                        sx={FavouriteIcon}
-                                        size="large"
-                                        aria-label={`info about ${item.title}`}
-                                    >
-                                        <FavoriteBorderIcon />
-                                        {/* <FavoriteIcon /> */}
-                                    </IconButton>
-                                }
-                            />
-                        </ImageListItem>
-                    ))}
-                </ImageList>
-
-                {/* <Box
-                    sx={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(3, 1fr)",
-                    }}
-                >
-                    <a href="#" sx={{}}>
-                        <Box sx={Recipe}>
-                            <Box sx={Recipe_content}>
-                            <Box sx={img}>
+                <Box sx={Group_row}>
+                    <Typography sx={Title}> Recommends</Typography>
+                    <ImageList sx={Group_Recipe} gap={12}>
+                        {itemData.map((item) => (
+                            <ImageListItem key={item.img} sx={Recipe_content}>
                                 <img
-                                    src="https://img.taste.com.au/WU4WfY8W/taste/2022/11/best-ever-italian-salad-recipe-1-183293-1.jpg"
-                                    alt="Italian Salad"
-                                ></img>
-                                <i class="heart bi bi-suit-heart-fill"></i>
-                            </Box>
-                            <FavoriteIcon />
-                            </Box>
-                        </Box>
-                        <Typography sx={Recipe_name}>Italian Salad</Typography>
-                    </a>
-                    <img
-                        src="https://img.taste.com.au/WU4WfY8W/taste/2022/11/best-ever-italian-salad-recipe-1-183293-1.jpg"
-                        alt="Italian Salad"
-                        sx={{width: "120px", height: "120px"}}
-                    ></img>
-                </Box> */}
+                                    src={item.img}
+                                    // srcSet={item.img}
+                                    alt={item.title}
+                                    sx={img}
+                                />
+                                <ImageListItemBar
+                                    title={item.title}
+                                    subtitle={item.author}
+                                    sx={Recipe_detail}
+                                    actionIcon={
+                                        <IconButton>
+                                            {item.favourite == true ? <FavoriteBorderIcon fontSize="large" sx={{ color: "#F8F8F8" }} /> : <FavoriteIcon fontSize="large" sx={{ color: "#F67280" }} />}
+                                        </IconButton>
+                                    }
+                                />
+                            </ImageListItem>
+                        ))}
+                    </ImageList>
+                </Box>
+                {/* <Divider flexItem sx={DividerStyle}/>
+                <Box sx={Group_row}>
+                    <Typography sx={Title}>Top 5 in Breakfast</Typography>
+                    <ImageList sx={Group_Recipe} gap={12}>
+                        {itemData.map((item) => (
+                            <ImageListItem key={item.img} sx={Recipe_content}>
+                                <img
+                                    src={item.img}
+                                    // srcSet={item.img}
+                                    alt={item.title}
+                                    sx={img}
+                                />
+                                <ImageListItemBar
+                                    title={item.title}
+                                    subtitle={item.author}
+                                    sx={Recipe_detail}
+                                    actionIcon={
+                                        <IconButton>
+                                            {item.favourite == true ? <FavoriteBorderIcon fontSize="large" sx={{ color: "#F8F8F8" }} /> : <FavoriteIcon fontSize="large" sx={{ color: "#F67280" }} />}
+                                        </IconButton>
+                                    }
+                                />
+                            </ImageListItem>
+                        ))}
+                    </ImageList>
+                </Box>
+                <Divider flexItem sx={DividerStyle}/> */}
 
-                {/* <CardContent>
-                        <Typography>
-                            Lizard
-                        </Typography>
-                    </CardContent> */}
             </Box>
         </Box>
     );
@@ -91,6 +150,7 @@ function Findpage() {
 
 export default Findpage;
 
+// Style
 const Head = {
     fontFamily: "Quicksand",
     color: "#F8B195",
@@ -109,9 +169,10 @@ const Content = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: "1200px",
-    height: "500px",
-    margin: "auto",
+    width: "fit-content",
+    height: "fit-content",
+    paddingTop: "25px",
+    paddingBottom: "25px",
 };
 
 const Title = {
@@ -121,80 +182,96 @@ const Title = {
 };
 
 const Group_Recipe = {
-    // width: 500,
-    // height: 450,
     display: "flex",
     flexDirection: "row",
+
 };
 
-const Recipe = {
-    // width: "10px",
-    // height: "10px",
-    textAlign: "center",
-    display: "block",
-    textDecoration: "none",
+const Group_row = {
+    marginLeft: "50px",
+    marginRight: "50px",
+    marginBottom: "10px",
+};
+
+const Recipe_detail = {
     transition: "250ms all",
-    marginRight: "10px",
-    minWidth: "200px",
+    background: "",
+    height: "fit-content",
 };
 
 const Recipe_content = {
     display: "block",
     justifyContent: "center",
     alignItems: "center",
-    maxHeight: "180px",
     marginBottom: "10px",
     boxShadow: "0px 3px 6px rgba(0,0,0,.16)",
     overflow: "hidden",
     borderRadius: "8px",
     position: "relative",
     textAlign: "center",
+    width: "250px",
+    height: "1000px"
 };
 
 const img = {
-    // width: "100%",
-    // height: "200px",
-    // maxHeight: "120px",
-    // objectFit: "cover",
-
-    width: "100%",
-    height: "100%",
-    position: "relative",
+    width: 1,
+    height: 1,
+    maxHeight: "120px",
     objectFit: "cover",
-    display: "block",
+    position: "relative",
+
 };
 
-const Recipe_name = {};
+const DividerStyle = {
+    backgroundColor: "#C06C84",
+    margin: "10px",
+    // marginTop: "10px"
+}
 
-const FavouriteIcon = {
-    color: "#F8F8F8",
-    // color: "#F67280",
-};
-
+// Data
 const itemData = [
     {
-        img: "https://img.taste.com.au/WU4WfY8W/taste/2022/11/best-ever-italian-salad-recipe-1-183293-1.jpg",
-        title: "Breakfast",
+        img: "src/assets/Salad.jpg",
+        title: "Salad",
         author: "@bkristastucchio",
-        rows: 2,
-        cols: 2,
-        featured: true,
+        favourite: true,
+        // rows: 2,
+        // cols: 2,
+        // featured: true,
     },
 
     {
-        img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-        title: "Burger",
+        img: "src/assets/Pizza.png",
+        title: "Pizza",
         author: "@rollelflex_graphy726",
+        favourite: false,
+
     },
     {
-        img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-        title: "Camera",
+        img: "src/assets/Hamburger.jpg",
+        title: "Hamburger",
         author: "@helloimnik",
+        favourite: true,
+
     },
     {
-        img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-        title: "Coffee",
+        img: "src/assets/Pancake.jpg",
+        title: "Pancake",
         author: "@nolanissac",
-        cols: 2,
+        favourite: false,
+
+        // cols: 2,
+    },
+    {
+        img: "src/assets/Spaghetti.jpg",
+        title: "Spaghetti",
+        author: "@helloimnik",
+        favourite: true,
+
     },
 ];
+
+//Handle ...
+const handleClick = () => {
+    onClick = () => { alert('clicked') }
+}

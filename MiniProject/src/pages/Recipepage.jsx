@@ -11,3 +11,4 @@ function Recipepage() {
 }
 
 export default Recipepage
+// Style

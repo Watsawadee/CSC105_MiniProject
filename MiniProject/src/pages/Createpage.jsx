@@ -19,6 +19,7 @@ function CreatePage() {
 
 export default CreatePage;
 
+// Style
 const Header = {
     color: "#6C5B7B",
     fontFamily: "Quicksand",

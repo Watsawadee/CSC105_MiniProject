@@ -14,24 +14,15 @@ function Aboutpage() {
 
                     <Typography sx={Topic}>Who we are?</Typography>
                     <Typography sx={Text}>
-                        Lorem ipsum dolor sit amet consectetur. Quam fringilla
-                        turpis massa porttitor. In est viverra integer nulla id
-                        quam. Ac sit pretium convallis blandit nec quam risus
-                        morbi. Accumsan vulputate risus diam eu ultrices proin
-                        maecenas ut. Aenean dolor bibendum viverra praesent at.
-                        Justo nunc arcu diam eu dolor ornare.
+                    Welcome to Recipe, the ultimate platform for food lovers! We're a community-driven website where home cooks and professional chefs come together to share their favorite recipes. Our platform is designed to make it easy for you to search for the perfect recipe, save your favorite dishes, and share them with others. With Recipe, you'll have access to a wide variety of culinary creations from around the world. Join our community today and start sharing your love for food with others!
                     </Typography>
                     <Typography sx={Topic}>Our History</Typography>
+                    
                     <Typography sx={Text}>
-                        Lorem ipsum dolor sit amet consectetur. Quam fringilla
-                        turpis massa porttitor. In est viverra integer nulla id
-                        quam. Ac sit pretium convallis blandit nec quam risus
-                        morbi. Accumsan vulputate risus diam eu ultrices proin
-                        maecenas ut. Aenean dolor bibendum viverra praesent at.
-                        Justo nunc arcu diam eu dolor ornare.
+                    Recipe, a website dedicated to sharing and discovering delicious recipes, has a rich history. It was founded with a simple goal in mind - to create a platform where people can easily find and share their favorite recipes with friends and family. From its humble beginnings, Recipe has grown to become a go-to destination for food lovers around the world. Over the years, the website has evolved to incorporate user-generated content, social networking features, and advanced search functions, making it easier than ever to find and share your favorite recipes. Whether you're a seasoned chef or a novice cook, Recipe is the perfect place to discover new and exciting recipes to try in your own kitchen. With a vast collection of recipes at your fingertips, there's no limit to the delicious dishes you can create with Recipe.
                     </Typography>
                     <Typography sx={sec_text}>
-                    Lorem ipsum dolor sit amet consectetur. Leo facilisi ultrices tellus non pellentesque. Mauris tristique dictum ut diam faucibus pulvinar. Donec volutpat venenatis urna vitae neque odio velit viverra. Volutpat aliquet quisque vitae a amet pretium. Mattis nisl augue condimentum purus vel viverra ut. Orci rhoncus posuere fringilla fames metus auctor lacus turpis. Diam gravida feugiat massa nisi felis. Morbi massa purus eleifend auctor. Rhoncus enim etiam ornare eget et. Risus nisi vestibulum mi massa odio commodo sodales nulla id. Ultricies vitae sollicitudin tortor eleifend sagittis ac integer. Amet dui maecenas mi quam purus vel eu sollicitudin eu. Amet et nunc viverra proin mauris amet dolor quis. Suspendisse sagittis varius gravida euismod ut mauris. Nulla varius nisl nunc elit accumsan malesuada iaculis. Interdum ullamcorper donec facilisi in vulputate. Eu neque iaculis ipsum pulvinar fringilla sed porta lobortis. Viverra pretium imperdiet neque id. Faucibus vel consequat neque rhoncus maecenas nec tristique est nunc. Eget porttitor feugiat facilisis mattis pulvinar. Suspendisse nulla molestie integer auctor commodo vestibulum placerat.
+                    Today, Recipe continues to be a thriving community of food enthusiasts, all brought together by their love of cooking and sharing great food. Our website is a place where people can connect, share ideas, and discover new culinary creations from around the world. We're proud to offer a platform that's not only easy to use, but also fosters a sense of community and collaboration. Whether you're looking for a traditional family recipe, an exotic international dish, or a trendy new food trend, Recipe has something for everyone. Join our community today and discover the joy of cooking and sharing delicious food with others!
 
                     </Typography>
                 </Box>
@@ -42,6 +33,7 @@ function Aboutpage() {
 
 export default Aboutpage;
 
+// Style
 const Content = {
   display: "flex",
   flexDirection: "column",
@@ -70,9 +62,9 @@ const Text = {
   fontWeight: "Bold",
   fontFamily: "Quicksand",
   fontSize: "25px",
-  marginTop: "10px"
+  marginTop: "10px",
+  alignItems: "left"
 }
-
 const sec_text = {
   fontWeight: "Bold",
   fontFamily: "Quicksand",

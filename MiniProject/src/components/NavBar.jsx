@@ -7,12 +7,11 @@ import {
     Typography,
     IconButton,
     Button,
-}  from "@mui/material";
+    Divider,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 
 function NavBar() {
     let navigate = useNavigate();
@@ -31,63 +30,33 @@ function NavBar() {
                             <Typography sx={Logo}>Recipe</Typography>
                         </Box>
                         <IconButton
-                            sx={{
-                                color: "white",
-                                display: { xs: "block", md: "none" },
-                            }}
+                            sx={Hamburger}
                         >
                             <MenuIcon sx={{ fontSize: "40px" }} />
                         </IconButton>
-                        <Box
-                            sx={{
-                                display: {
-                                    xs: "none",
-                                    md: "block",
-                                    fontFamily: "Anton",
-                                },
-                            }}
-                        >
+                        <Box sx={Nav_RightBar}>
                             <Button
                                 onClick={() => handleClick("/")}
-                                color="inherit"
-                                sx={{
-                                    fontFamily: "Anton",
-                                    fontSize: "25px",
-                                    marginRight: "25px",
-                                }}
+                                sx={StyleMenuBar}
                             >
                                 Home
                             </Button>
+                            {/* <Divider orientation="vertical" flexItem sx={Divider_Vertical} /> */}
                             <Button
                                 onClick={() => handleClick("/recipe")}
-                                color="inherit"
-                                sx={{
-                                    fontFamily: "Anton",
-                                    fontSize: "25px",
-                                    marginRight: "25px",
-                                }}
+                                sx={StyleMenuBar}
                             >
                                 Recipe
                             </Button>
                             <Button
                                 onClick={() => handleClick("/about")}
-                                color="inherit"
-                                sx={{
-                                    fontFamily: "Anton",
-                                    fontSize: "25px",
-                                    marginRight: "25px",
-                                }}
+                                sx={StyleMenuBar}
                             >
                                 ABOUT US
                             </Button>
                             <Button
                                 onClick={() => handleClick("/login")}
-                                color="inherit"
-                                sx={{
-                                    fontFamily: "Anton",
-                                    fontSize: "25px",
-                                    marginRight: "25px",
-                                }}
+                                sx={StyleMenuBar}
                             >
                                 LOG IN
                             </Button>
@@ -101,6 +70,7 @@ function NavBar() {
 
 export default NavBar;
 
+// Style
 const Logo = {
     fontWeight: "bold",
     fontSize: "50px",
@@ -111,3 +81,24 @@ const Logo = {
     marginLeft: "20px",
 };
 
+const Divider_Vertical = {
+    backgroundColor: "black",
+};
+const StyleMenuBar = {
+    fontFamily: "Anton",
+    fontSize: "25px",
+    marginRight: "25px",
+    color: "#F8F8F8",
+}
+const Nav_RightBar = {
+    display: {
+        xs: "none",
+        md: "block",
+        fontFamily: "Anton",
+    }
+}
+
+const Hamburger = {
+    color: "white",
+    display: { xs: "block", md: "none" },
+}

@@ -3,12 +3,9 @@ import NavBar from "../components/NavBar";
 import { Box, Typography, TextField, colors } from "@mui/material";
 import "../styles/Account.css";
 import Button from "@mui/material/Button";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 
 const handleSubmit = (event) => {
@@ -19,7 +16,6 @@ const handleSubmit = (event) => {
         password: data.get("password"),
     });
 };
-const theme = createTheme();
 
 function Accountpage() {
     let navigate = useNavigate();
@@ -32,43 +28,29 @@ function Accountpage() {
             <Box sx={BoxContent}>
                 <Box sx={Content}>
                     <Typography sx={Head}>Log in To Your Account</Typography>
-                    {/*                     
-
-                    <TextField
-                        required
-                        label=""
-                        placeholder="example@gmail.com"
-                        sx={input_box}
-                    />
-
-
-                    <TextField
-                        id="outlined-password-input"
-                        label=""
-                        type="password"
-                        placeholder="****************"
-                        autoComplete="current-password"
-                        sx={input_box}
-                    /> */}
-                    <Typography sx={Text}>Email</Typography>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        placeholder="   example@gmail.com"
-                        autoFocus
-                        sx={input_box}
-                    />
-                    <Typography sx={Text}>Password</Typography>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        placeholder="   ***********************"
-                        type="password"
-                        autoComplete="current-password"
-                        sx={input_box}
-                    />
+                    <Box sx={input}>
+                        <Typography sx={Text}>Email</Typography>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            placeholder="example@gmail.com"
+                            autoFocus
+                            sx={input_box}
+                        />
+                    </Box>
+                    <Box sx={input}>
+                        <Typography sx={Text}>Password</Typography>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            placeholder="***********************"
+                            type="password"
+                            autoComplete="current-password"
+                            sx={input_box}
+                        />
+                    </Box>
 
                     <Button
                         onClick={() => handleClick("/account")}
@@ -79,78 +61,23 @@ function Accountpage() {
                         Log in
                     </Button>
 
-                    <Grid container>
-                        <Grid item>
-                            <Link href="/signup" sx={Signup}>
-                                {"Sign Up"}
-                            </Link>
-                        </Grid>
-                    </Grid>
+                    <Link href="/signup" sx={Signup}>
+                        {"Sign up"}
+                    </Link>
                 </Box>
             </Box>
-            {/* 
-            <Box sx={BoxContent}>
-                <Container maxWidth="xs">
-                    <CssBaseline />
-                    <Box sx={Content}>
-                        <Typography sx={Head}>
-                            Log in To Your Account
-                        </Typography>
-                        <Box
-                            component="form"
-                            onSubmit={handleSubmit}
-                            noValidate
-                            sx={{ mt: 1 }}
-                        >
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                label="Email Address"
-                                autoFocus
-                                sx={input_box}
-                            />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                label="Password"
-                                type="password"
-                                autoComplete="current-password"
-                                sx={input_box}
-                            />
-                            <Button
-                                onClick={() => handleClick("/account")}
-                                type="submit"
-                                fullWidth
-                                sx={Submit}
-                            >
-                                Log in
-                            </Button>
-
-                            <Grid container>
-                                <Grid item>
-                                    <Link href="/signup" sx={Signup}>
-                                        {"Sign Up"}
-                                    </Link>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                    </Box>
-                </Container>
-            </Box> */}
         </>
     );
 }
 
 export default Accountpage;
-
+// Style
 const BoxContent = {
-    backgroundImage: "url(src/assets/chef.jpg)",
+    backgroundImage: "url(src/assets/chef_30.jpg)",
     backgroundSize: "cover",
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
     height: "100vh",
-
-    BackgroundColor: "aqua",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -167,7 +94,6 @@ const Content = {
     width: "fit-content",
     borderRadius: "20px",
     padding: "50px",
-    backgroundColor: "#F8F8F8",
 };
 
 const Head = {
@@ -190,14 +116,11 @@ const input_box = {
     textDecoration: "none",
     "& fieldset": { border: "none" },
     input: { color: "#6C5B7B", fontSize: "20px", },
-    // border: "none",
-    "&::placeholder": {
-        textOverflow: "ellipsis !important",
-        color: "#F8F8F8",
-        borderRadius: "20px",
-        border: "none",
-    },
     width: "500px",
+    margin: "5px",
+};
+
+const input = {
 
 };
 
@@ -209,7 +132,8 @@ const Submit = {
     borderRadius: "40px",
     backgroundColor: "#6C5B7B",
     color: "#F8F8F8",
-    width: "500px",
+    width: "250px",
+    marginTop: "15px"
 };
 
 const Signup = {
@@ -220,6 +144,7 @@ const Signup = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "start",
     textDecorationColor: "#6C5B7B",
+    marginTop: "10px"
 };
