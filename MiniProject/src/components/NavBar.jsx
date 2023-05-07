@@ -87,7 +87,8 @@ const Divider_Vertical = {
 const StyleMenuBar = {
     fontFamily: "Anton",
     fontSize: "25px",
-    marginRight: "25px",
+    marginLeft: "12px",
+    marginRight: "12px",
     color: "#F8F8F8",
 }
 const Nav_RightBar = {
