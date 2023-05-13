@@ -143,7 +143,10 @@ const input_box = {
     borderRadius: "50px",
     textDecoration: "none",
     "& fieldset": { border: "none" },
-    input: { color: "#6C5B7B", fontSize: "20px", },
+    input: { 
+        color: "#6C5B7B",
+        fontSize: "20px",
+    },
     width: "500px",
     margin: "5px",
 };
@@ -168,7 +171,13 @@ const Submit = {
     marginTop: "15px",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    "&:hover": {
+        border: "1px solid #6C5B7B",
+        backgroundColor: "#F8F8F8",
+        color: "#6C5B7B",
+        boxShadow: 1,
+    },
 };
 
 

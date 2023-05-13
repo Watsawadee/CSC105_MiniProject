@@ -53,7 +53,8 @@ function Accountpage() {
                     </Box>
 
                     <Button
-                        onClick={() => handleClick("/account")}
+                        // onClick={() => handleClick("/account")}
+                        href="/account"
                         type="submit"
                         fullWidth
                         sx={Submit}
@@ -133,7 +134,14 @@ const Submit = {
     backgroundColor: "#6C5B7B",
     color: "#F8F8F8",
     width: "250px",
-    marginTop: "15px"
+    marginTop: "15px",
+    "&:hover": {
+        border: "1px solid #6C5B7B",
+        backgroundColor: "#F8F8F8",
+        color: "#6C5B7B",
+        boxShadow: 3,
+    },
+
 };
 
 const Signup = {
