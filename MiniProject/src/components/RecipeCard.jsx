@@ -18,6 +18,7 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
+import { useState } from "react";
 
 
 function RecipeCard() {
@@ -97,10 +98,28 @@ export default RecipeCard;
 
 const RecipeCardroot = {};
 
+
 const Group_Recipe = {
-    display: "flex",
-    flexDirection: "row",
+    // display: "flex",
+    // flexDirection: "row",
     // overflowX: "auto",
+
+    // whiteSpace: "nowrap",
+    // flexWrap: 'nowrap',
+
+    width: "100%",
+    display: "grid",
+    // gridGap: "10px",
+    gridAutoFlow: "column",
+    // gridTemplateColumns: "repeat(200px,1fr)",
+    gridAutoColumns: "minmax(0px, 1fr)",
+    // padding: "0 20px",
+    // // gridTemplateColumns: "repeat(auto-fill, minmax(15em, 1fr))",
+    // // gridAutoColumns: "minmax(15em, 1fr)",
+    overflowX: "scroll",
+    // alignItems: "center",
+    
+
 };
 
 const Recipe_detail = {
@@ -199,17 +218,17 @@ const itemData = [
         favourite: true,
     },
 
-    {
-        img: "src/assets/Spaghetti.jpg",
-        title: "Spaghettiiiiii",
-        author: "@helloimnik",
-        favourite: true,
-    },
+    // {
+    //     img: "src/assets/Spaghetti.jpg",
+    //     title: "Spaghettiiiiii",
+    //     author: "@helloimnik",
+    //     favourite: true,
+    // },
 
-    {
-        img: "src/assets/Spaghetti.jpg",
-        title: "Spaghettiiiiii",
-        author: "@helloimnik",
-        favourite: true,
-    },
+//     {
+//         img: "src/assets/Spaghetti.jpg",
+//         title: "Spaghettiiiiii",
+//         author: "@helloimnik",
+//         favourite: true,
+//     },
 ];

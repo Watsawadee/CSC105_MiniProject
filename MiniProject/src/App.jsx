@@ -1,7 +1,7 @@
 // import { useState } from 'react'
 import "./App.css";
 import React from "react";
-import Homepage from "./pages/Homepage";
+import RecipeDetailpage from "./pages/RecipeDetailpage";
 import Recipepage from "./pages/Recipepage";
 import Aboutpage from "./pages/Aboutpage";
 import Accountpage from "./pages/Accountpage";
@@ -19,7 +19,7 @@ function App() {
         <>
             <Routes>
                 <Route exect path="/" element={<Findpage />} />
-                <Route path="/home" element={<Homepage />} />
+                <Route path="/detail" element={<RecipeDetailpage />} />
                 <Route path="/recipe" element={<Recipepage />} />
                 <Route path="/about" element={<Aboutpage />} />
                 <Route path="/login" element={<LogInpage />} />

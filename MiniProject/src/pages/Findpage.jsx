@@ -168,6 +168,7 @@ const Content = {
     paddingTop: "25px",
     paddingBottom: "25px",
 
+
 };
 
 const Title = {
@@ -183,6 +184,7 @@ const Group_row = {
     marginLeft: "50px",
     marginRight: "50px",
     marginBottom: "10px",
+
 };
 
 

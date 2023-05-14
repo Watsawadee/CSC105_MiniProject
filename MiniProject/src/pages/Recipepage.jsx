@@ -5,7 +5,7 @@ function Recipepage() {
   return (
     <div>
         <NavBar />
-        <h1>Recipe</h1>
+        <h1>All Recipe</h1>
     </div>
   )
 }
