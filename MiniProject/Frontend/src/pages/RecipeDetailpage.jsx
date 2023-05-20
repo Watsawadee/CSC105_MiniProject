@@ -2,7 +2,7 @@ import React from 'react'
 import NavBar from '../components/NavBar'
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, Grid } from "@mui/material";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -17,22 +17,27 @@ import StarHalfIcon from '@mui/icons-material/StarHalf';
 function RecipeDetailpage() {
   return (
     <>
-      <NavBar />
-      <Box sx={DetailPage}>
-        {/* <h1>Recipe Detail page</h1> */}
-        <Box sx={ImageBox}>
-          <Carousel autoPlay interval="3000" infiniteLoop>
-            {itemData.map((item) => (
-              <ImageListItem key={item.img} sx={Image}>
-                <img
-                  src={item.img}
-                  style={{width:"100%", height:"100%", objectfit: "cover"}}
-                />
-              </ImageListItem>
-            ))}
-          </Carousel>
+      <Grid item xs={12}>
+        <NavBar />
+      </Grid>
 
-          {/* <IconButton>
+      <Grid>
+
+        <Box sx={DetailPage}>
+          <Grid item xs={6} >
+            {/* <h1>Recipe Detail page</h1> */}
+            <Box sx={ImageBox}>
+              <Carousel autoPlay interval="3000" infiniteLoop>
+                {itemData.map((item) => (
+                  <ImageListItem key={item.img} sx={Image}>
+                    <img
+                      src={item.img}
+                      style={{ width: "100%", height: "100%", objectfit: "cover" }}
+                    />
+                  </ImageListItem>
+                ))}
+              </Carousel>
+              {/* <IconButton>
             <FormControlLabel
               control={
                 <Checkbox
@@ -52,59 +57,62 @@ function RecipeDetailpage() {
               }
             ></FormControlLabel>
           </IconButton> */}
-        </Box>
-
-        <Box sx={Detail}>
-          <Box>
-            <Typography sx={Title}>Italian Salad</Typography>
-            <Box sx={{ marginBottom: "15px", display: "flex" }}>
-              <StarIcon /> <StarIcon /> <StarIcon />
-              <StarHalfIcon /> <StarBorderIcon />
-              <Typography sx={{ marginRight: "20px" }}> (18) </Typography>
             </Box>
-            <Typography sx={Description}>This simple Italian salad is the only side salad recipe you need. It fits perfectly with any pasta dish and finds good company alongside a whole roasted chicken or delicate fish dinner.</Typography>
-          </Box>
+          </Grid>
 
-
-
-          <Box sx={DetailRight}>
-            <Typography sx={topic}>Directions</Typography>
-            <Typography sx={text}>
-              <ol>
-                <li>Grab a jar. Add the dressing ingredients, secure the lid, and shake away!</li>
-                <li>Roughly chop the romaine lettuce and throw it in a nice big bowl.</li>
-                <li>Add the olives, pepperoncinis, onions, and tomatoes.</li>
-                <li>Toss the salad with the dressing!</li>
-                <li>Put as much parmesan cheese and as many croutons as you'd like on your perfect Italian side salad!</li>
-              </ol>
-            </Typography>
-
-            <Box sx={{ display: "flex", flexDirection: {xs: "column", sm: "row"}}}>
-              <Box sx={{ display: "flex", flexDirection: "column", marginRight: "80px", }}>
-                <Typography sx={topic}>Ingredients</Typography>
-                <Typography sx={text}>
-                  <li>Garlic powder</li>
-                  <li>Dried oregano</li>
-                  <li>Dries basil</li>
-                  <li>Salt</li>
-                  <li>Extra virgin olive oil</li>
-                  <li>Red wine vinegar</li>
-                </Typography>
+          <Grid item xs={6}>
+            <Box sx={Detail}>
+              <Box>
+                <Typography sx={Title}>Italian Salad</Typography>
+                <Box sx={{ marginBottom: "15px", display: "flex" }}>
+                  <StarIcon /> <StarIcon /> <StarIcon />
+                  <StarHalfIcon /> <StarBorderIcon />
+                  <Typography sx={{ marginRight: "20px" }}> (18) </Typography>
+                </Box>
+                <Typography sx={Description}>This simple Italian salad is the only side salad recipe you need. It fits perfectly with any pasta dish and finds good company alongside a whole roasted chicken or delicate fish dinner.</Typography>
               </Box>
-              <Box sx={{ display: "Flex", flexDirection: "column" }}>
-                <Typography sx={topic}>Tools</Typography>
+
+
+
+              <Box sx={DetailRight}>
+                <Typography sx={topic}>Directions</Typography>
                 <Typography sx={text}>
-                  <li>Measuring spoons</li>
-                  <li>A Jar</li>
-                  <li>Salad bowl</li>
-                  <li>Salad tongs</li>
-                </Typography></Box>
+                  <ol>
+                    <li>Grab a jar. Add the dressing ingredients, secure the lid, and shake away!</li>
+                    <li>Roughly chop the romaine lettuce and throw it in a nice big bowl.</li>
+                    <li>Add the olives, pepperoncinis, onions, and tomatoes.</li>
+                    <li>Toss the salad with the dressing!</li>
+                    <li>Put as much parmesan cheese and as many croutons as you'd like on your perfect Italian side salad!</li>
+                  </ol>
+                </Typography>
+
+                <Box sx={{ display: "flex", flexDirection: { xs: "column", sm: "row" } }}>
+                  <Box sx={{ display: "flex", flexDirection: "column", marginRight: "80px", }}>
+                    <Typography sx={topic}>Ingredients</Typography>
+                    <Typography sx={text}>
+                      <li>Garlic powder</li>
+                      <li>Dried oregano</li>
+                      <li>Dries basil</li>
+                      <li>Salt</li>
+                      <li>Extra virgin olive oil</li>
+                      <li>Red wine vinegar</li>
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: "Flex", flexDirection: "column" }}>
+                    <Typography sx={topic}>Tools</Typography>
+                    <Typography sx={text}>
+                      <li>Measuring spoons</li>
+                      <li>A Jar</li>
+                      <li>Salad bowl</li>
+                      <li>Salad tongs</li>
+                    </Typography></Box>
+                </Box>
+              </Box>
+
             </Box>
-          </Box>
+          </Grid>
 
-        </Box>
-
-        {/* <Box>
+          {/* <Box>
           {itemData.map((item) => (
             <Typography key={item.title} sx={Title}>
               {item.title}
@@ -112,7 +120,8 @@ function RecipeDetailpage() {
           ))}
         </Box> */}
 
-      </Box>
+        </Box>
+      </Grid>
     </>
   )
 }

@@ -101,7 +101,7 @@ const Content = {
 
 const Head = {
     fontFamily: "Quicksand",
-    fontSize: {xs:"30px", sm:"40px",md:"60px"},
+    fontSize: {xs:"28px", sm:"40px",md:"60px"},
     // , md:"55px"
     fontWeight: "Bold",
     color: "#6C5B7B",
@@ -109,7 +109,7 @@ const Head = {
 
 const Text = {
     fontFamily: "Quicksand",
-    fontSize: {xs:"25px", sm:"28px", md:"30px"},
+    fontSize: {xs:"20px", sm:"28px", md:"30px"},
     fontWeight: "Bold",
     color: "#6C5B7B",
 };

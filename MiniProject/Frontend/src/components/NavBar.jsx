@@ -32,14 +32,14 @@ function NavBar() {
     };
 
     return (
-        <Box sx={{ width: { xs: "100vw"} }}>
+        <Box sx={{ width: { xs: "100vw" } }}>
 
             <AppBar
                 position="static"
                 sx={{ backgroundColor: "#F67280", width: "100vw" }}
             >
                 <Toolbar sx={{ margin: "0", padding: "0px" }}>
-                    <Box onClick={() => handleClick("/")} sx={Logo}>
+                    <Box onClick={() => handleClick("/")} sx={{ flexGrow: 1 }}>
                         <Typography sx={Logo}>Recipe</Typography>
                     </Box>
                     <IconButton sx={Hamburger} onClick={handleMenuOpen}>
@@ -112,12 +112,14 @@ export default NavBar;
 // Style
 const Logo = {
     fontWeight: "bold",
-    fontSize: { xs: "30px", sm: "40px", md:"50px" },
+    fontSize: { xs: "30px", sm: "40px", md: "50px" },
     flexGrow: 1,
     fontFamily: "Gluten",
     color: "#F8F8F8",
     justifyContent: "flex-start",
     marginLeft: "20px",
+    width: "fit-content",
+    // backgroundColor: "purple",
 };
 
 const Divider_Vertical = {
@@ -146,6 +148,6 @@ const Hamburger = {
 const StyleMenuBarHamburger = {
     color: "#F67280",
     fontFamily: "Quicksand",
-    fontSize: {xs:"18px",sm:"22px"},
+    fontSize: { xs: "18px", sm: "22px" },
     fontWeight: "bold",
 }

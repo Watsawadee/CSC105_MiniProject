@@ -122,9 +122,12 @@ export default SignUppage;
 
 const Head = {
     fontFamily: "Quicksand",
-    fontSize: { xs: "40px", sm: "40px" },
+    fontSize: { xs: "35px", sm: "40px" },
     fontWeight: "Bold",
     color: "#6C5B7B",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
 };
 
 const input_box = {
@@ -136,13 +139,13 @@ const input_box = {
         color: "#6C5B7B",
         fontSize: { xs: "20px" },
     },
-    width: { xs: "350px" },
+    width: { xs: "300px" , sm:"320px", lg:"400px"},
     margin: "5px",
 };
 
 const Text = {
     fontFamily: "Quicksand",
-    fontSize: "30px",
+    fontSize: { xs: "20px", sm: "30px" },
     fontWeight: "Bold",
     color: "#6C5B7B",
     marginLeft: "30px",
@@ -152,7 +155,7 @@ const Submit = {
     color: "#6C5B7B",
     fontFamily: "Quicksand",
     fontWeight: "Bold",
-    fontSize: "30px",
+    fontSize: {xs:"25px", md:"30px"},
     borderRadius: "40px",
     backgroundColor: "#6C5B7B",
     color: "#F8F8F8",
@@ -173,7 +176,7 @@ const Login = {
     color: "#6C5B7B",
     fontFamily: "Quicksand",
     fontWeight: "Bold",
-    fontSize: "30px",
+    fontSize: {xs:"25px", md:"30px"},
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -188,6 +191,9 @@ const Image = {
     backgroundSize: "cover",
     backgroundPosition: "center",
     height: "calc(100vh - 75px)",
+    "@media (max-width: 900px)": {
+        display: "none",
+      },
 };
 
 const Content = {
@@ -198,15 +204,14 @@ const Content = {
     height: "fit-content",
     width: "fit-content",
     borderRadius: "20px",
+    // backgroundColor: "red",
 };
 
 const BoxContent = {
-    // my: {sm: 8},
-    // mx: {sm: 4},
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    // backgroundColor: "red"
+    // backgroundColor: "red",
     height: "calc(100vh - 75px)",
 };
