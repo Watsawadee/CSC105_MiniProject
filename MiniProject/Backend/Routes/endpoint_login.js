@@ -1,31 +1,80 @@
-const express = require('express');
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+
 const router = express.Router();
-const jwt = require('jsonwebtoken');
 
 module.exports = (connection, secretKey) => {
-    router.post('/login', (req, res) => {
-        const { username, password } = req.body;  
-        // Perform database query to check credentials
-        connection.query('SELECT * FROM user WHERE name = ? AND password = ?', [username, password], (err, results) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Internal Server Error' });
+    router.post("/", (req, res) => {
+        const { emailOrName, password } = req.body;
+
+        // console.log("Received login request. Email/Name:", emailOrName, "Password:", password);
+
+        // Perform database query to retrieve the user with the given email or name
+        const sqlSelect = "SELECT * FROM user WHERE email = ? OR name = ?";
+        connection.query(
+            sqlSelect,
+            [emailOrName, emailOrName],
+            (err, results) => {
+                if (err) {
+                    console.error("Error executing the SQL query: ", err);
+                    res.sendStatus(500);
+                } else {
+                    // console.log("Query results:", results);
+
+                    if (results.length === 0) {
+                        // User with the given email or name not found
+                        console.log("User not found.");
+                        res.status(401).json({
+                            success: false,
+                            message: "Invalid email or password",
+                        });
+                    } else {
+                        const user = results[0];
+                        bcrypt.compare(
+                            password,
+                            user.password,
+                            (err, isMatch) => {
+                                if (err) {
+                                    console.error(
+                                        "Error comparing passwords: ",
+                                        err
+                                    );
+                                    res.sendStatus(500);
+                                } else {
+                                    if (!isMatch) {
+                                        // Incorrect password
+                                        console.log("Incorrect password.");
+                                        res.Status(401).json({
+                                            success: false,
+                                            message:
+                                                "Invalid email or password",
+                                        });
+                                    } else {
+                                        // Generate JWT token
+                                        const token = jwt.sign(
+                                            { email: user.email },
+                                            secretKey,
+                                            { expiresIn: "1h" }
+                                        );
+                                        // console.log("Token generated:", token);
+                                        // Set the token as a cookie in the response
+                                        res.cookie("token", token, {
+                                            httpOnly: true,
+                                        });
+                                        res.status(200).json({
+                                            success: true,
+                                            message: "Login successful",
+                                        });
+                                    }
+                                }
+                            }
+                        );
+                    }
+                }
             }
-    
-            if (results.length === 0) {
-                // Invalid credentials
-                return res.status(401).json({ error: 'Invalid username or password' });
-            }
-    
-            // Valid credentials
-            const user = results[0];
-            const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' });
-    
-            // Set the token as a cookie or send it in the response
-            res.cookie('token', token, { httpOnly: true }).json({ message: 'Login successful' });
-        });
+        );
     });
 
     return router;
 };
-

@@ -70,7 +70,7 @@ function NavBar() {
                             onClick={() => handleClick("/login")}
                             sx={StyleMenuBar}
                         >
-                            LOG IN
+                            ACCOUNT
                         </Button>
                     </Box>
                 </Toolbar>
@@ -100,7 +100,7 @@ function NavBar() {
                     onClick={() => handleClick("/login")}
                     sx={StyleMenuBarHamburger}
                 >
-                    LOG IN
+                    ACCOUNT
                 </MenuItem>
             </Menu>
         </Box>

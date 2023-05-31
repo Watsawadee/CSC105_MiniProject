@@ -1,27 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "../components/NavBar";
 import { IconButton } from "@mui/material";
 import { Box, Typography, TextField, Button } from "@mui/material";
-
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
-
-const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-        email: data.get("email"),
-        password: data.get("password"),
-    });
-};
+import Axios from "../AxiosInstance"
+import axios from "axios";
 
 function SignUppage() {
     let navigate = useNavigate();
+    const [username, setUsername] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [agree, setAgree] = useState(true);
+    const [error, setError] = useState({});
+    const [textAgree, setTextAgree] = useState(false);
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (!validate()) return false;
+        const data = {
+            name: username,
+            password: password,
+            email: email,
+        };
+        try {
+            await Axios.post("/signup", data);
+            handleClick("/login");
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const handleClick = (destination) => {
         navigate(destination);
+    };
+
+    const validate = () => {
+        if (confirmPassword != password) {
+            console.log(confirmPassword)
+            console.log(password)
+            setPassword("");
+            setConfirmPassword("");
+            return false;
+        }
+
+        if (!confirmPassword) {
+            setError({ confirmPassword: "Confirm Password is required" });
+            return false;
+        }
+
+        if (agree) {
+            setTextAgree(true);
+            return false;
+        }
+
+        return true;
     };
 
     return (
@@ -31,18 +69,19 @@ function SignUppage() {
             </Grid>
 
             <Grid item sm={false} md={7} sx={Image} />
-            <Grid item sm={12} md={5} square >
+            <Grid item sm={12} md={5} square>
                 <Box sx={BoxContent}>
                     <Typography sx={Head}>Create Account</Typography>
-
-                    <Box noValidate onSubmit={handleSubmit} sx={Content}>
+                    <Box noValidate sx={Content}>
                         <Box>
-                            <Typography sx={Text}>Full Name</Typography>
+                            <Typography sx={Text}>Username</Typography>
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
-                                placeholder="Firstname Surname"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                placeholder="Username"
                                 autoFocus
                                 sx={input_box}
                             />
@@ -53,19 +92,11 @@ function SignUppage() {
                                 margin="normal"
                                 required
                                 fullWidth
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 placeholder="Email"
                                 autoComplete="email"
-                                autoFocus
-                                sx={input_box}
-                            />
-                        </Box>
-                        <Box>
-                            <Typography sx={Text}>Username</Typography>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                placeholder="Username"
+                                type="email"
                                 autoFocus
                                 sx={input_box}
                             />
@@ -76,6 +107,8 @@ function SignUppage() {
                                 margin="normal"
                                 required
                                 fullWidth
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 placeholder="***************"
                                 type="password"
                                 sx={input_box}
@@ -86,6 +119,8 @@ function SignUppage() {
                             <TextField
                                 margin="normal"
                                 required
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
                                 fullWidth
                                 placeholder="***************"
                                 type="password"
@@ -93,16 +128,24 @@ function SignUppage() {
                             />
                         </Box>
                         <FormControlLabel
-                            control={<Checkbox sx={{ color: "#6C5B7B" }} />}
+                            sx={{ color: textAgree ? "#D70040" : "#6C5B7B" }}
+                            control={
+                                <Checkbox
+                                    sx={{ color: "#6C5B7B" }}
+                                    onClick={() => {
+                                        setAgree(!agree);
+                                        console.log(agree);
+                                    }}
+                                />
+                            }
                             label="I read and agree to Terms & Conditions"
-                            required
                         />
                         <Button
-                            onClick={() => handleClick("/account")}
+                            // onClick={() => handleClick("/account")}
                             type="submit"
                             fullWidth
                             sx={Submit}
-                            noValidate
+                            onClick={handleSubmit}
                         >
                             Sign up
                         </Button>
@@ -139,7 +182,7 @@ const input_box = {
         color: "#6C5B7B",
         fontSize: { xs: "20px" },
     },
-    width: { xs: "300px" , sm:"320px", lg:"400px"},
+    width: { xs: "300px", sm: "320px", lg: "400px" },
     margin: "5px",
 };
 
@@ -155,7 +198,7 @@ const Submit = {
     color: "#6C5B7B",
     fontFamily: "Quicksand",
     fontWeight: "Bold",
-    fontSize: {xs:"25px", md:"30px"},
+    fontSize: { xs: "25px", md: "30px" },
     borderRadius: "40px",
     backgroundColor: "#6C5B7B",
     color: "#F8F8F8",
@@ -176,7 +219,7 @@ const Login = {
     color: "#6C5B7B",
     fontFamily: "Quicksand",
     fontWeight: "Bold",
-    fontSize: {xs:"25px", md:"30px"},
+    fontSize: { xs: "25px", md: "30px" },
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -193,7 +236,7 @@ const Image = {
     height: "calc(100vh - 75px)",
     "@media (max-width: 900px)": {
         display: "none",
-      },
+    },
 };
 
 const Content = {

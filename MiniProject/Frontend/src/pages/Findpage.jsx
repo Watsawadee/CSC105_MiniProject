@@ -27,11 +27,10 @@ import TextField from "@mui/material/TextField";
 import RecipeCard from "../components/RecipeCard";
 
 
-
 function Findpage() {
+
     return (
         <Box sx={FindPage}>
-
             <NavBar />
             <Typography sx={Head}> Find a Recipe </Typography>
             <Search />
@@ -41,14 +40,14 @@ function Findpage() {
                     <RecipeCard />
                 </Box>
 
-                <Divider flexItem sx={DividerStyle}/>
+                <Divider flexItem sx={DividerStyle} />
 
                 <Box sx={Group_row}>
                     <Typography sx={Title}> Recommends</Typography>
                     <RecipeCard />
                 </Box>
 
-                <Divider flexItem sx={DividerStyle}/>
+                <Divider flexItem sx={DividerStyle} />
 
                 {/* <Box sx={Group_row}>
                     <Typography sx={Title}>Top 5 in Breakfast</Typography>
@@ -87,13 +86,13 @@ export default Findpage;
 const Head = {
     fontFamily: "Quicksand",
     color: "#F8B195",
-    fontSize: {xs: "12vw", md: "100px"},
+    fontSize: { xs: "12vw", md: "100px" },
     fontWeight: "Bold",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: {xs: "40px", sm:"100px"},
-    marginBottom: {xs: "10px", sm:"25px"},
+    marginTop: { xs: "40px", sm: "100px" },
+    marginBottom: { xs: "10px", sm: "25px" },
 };
 
 const Content = {
@@ -108,13 +107,13 @@ const Content = {
     paddingTop: "25px",
     paddingBottom: "25px",
     marginBottom: "50px",
-    marginTop: {xs: "20px", sm:"40px"},
+    marginTop: { xs: "20px", sm: "40px" },
 };
 
 const Title = {
     fontFamily: "Quicksand",
     fontWeight: "Bold",
-    fontSize: {xs: "20px", md:"30px"},
+    fontSize: { xs: "20px", md: "30px" },
     marginBottom: "10px",
 };
 
@@ -122,9 +121,8 @@ const Group_row = {
     marginLeft: "5%",
     marginRight: "5%",
     // margin:"0 auto",
-    marginBottom: "10px",    
-    width: "80vw"
-    
+    marginBottom: "10px",
+    width: "80vw",
 };
 
 const DividerStyle = {
@@ -139,8 +137,8 @@ const FindPage = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center"
-}
+    alignItems: "center",
+};
 
 //Handle ...
 const handleClick = () => {
