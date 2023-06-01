@@ -280,7 +280,7 @@ the recipe object
 
 
 Example
-
+```
 {
   "recipe_name": "Spaghetti Bolognese",
   "description": "Classic Italian pasta dish with meat sauce",
@@ -294,3 +294,6 @@ Example
   "Dinner": true,
   "image_link": "https://example.com/spaghetti_bolognese.jpg"
 }
+
+
+```
