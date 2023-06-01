@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 import { Box, Typography, Divider } from "@mui/material";
-import RecipeCard from "../components/RecipeCard";
+import RecipeCard from "../components/RecipeCard/RecipeCard";
 
 function Recipepage() {
     return (

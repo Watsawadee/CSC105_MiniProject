@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import NavBar from "../components/NavBar";
+import NavBar from "../NavBar";
 import {
     Box,
     Typography,
@@ -28,7 +28,7 @@ function RecipeCard() {
     let navigate = useNavigate();
     const handleClick = (id) => {
         navigate(`/detail/${id}`);
-      };
+    };
     const [recipeData, setRecipeData] = useState([]);
     const [Fav, setFav] = useState(false);
 
@@ -39,19 +39,19 @@ function RecipeCard() {
     const fetchRecipes = () => {
         const token = localStorage.getItem('token'); // Assuming you store the token in local storage after login
         axios.get("http://localhost:8000/recipes/", {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
-        .then((response) => {
-          // Update the recipe data state with the fetched data
-          setRecipeData(response.data.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching recipe data:", error);
-        });
-      };
-      
+            .then((response) => {
+                // Update the recipe data state with the fetched data
+                setRecipeData(response.data.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching recipe data:", error);
+            });
+    };
+
 
     return (
         <Box sx={RecipeCardroot}>

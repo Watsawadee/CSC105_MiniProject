@@ -89,113 +89,114 @@ function RecipeDetailpage() {
 
                     <Grid item xs={6}>
                         <Box sx={Detail}>
-                            {itemData.map((item) => (
-                                <Box key={item.id}>
-                                    <Typography sx={Title}>
-                                        {/* Italian Salad */}
-                                        {item.recipe_name}
-                                    </Typography>
-                                    <Box
-                                        sx={{
-                                            marginBottom: "15px",
-                                            display: "flex",
-                                        }}
-                                    >
-                                        <StarIcon /> <StarIcon /> <StarIcon />
-                                        <StarHalfIcon /> <StarBorderIcon />
-                                        <Typography
-                                            sx={{ marginRight: "20px" }}
+                            {/* {itemData.map((item) => ( */}
+                                {/* <Box key={item.id}> */}
+                                    <Box>
+                                        <Typography sx={Title}>
+                                            Italian Salad
+                                            {/* {item.recipe_name} */}
+                                        </Typography>
+                                        <Box
+                                            sx={{
+                                                marginBottom: "15px",
+                                                display: "flex",
+                                            }}
                                         >
-                                            {" "}
-                                            (18){" "}
+                                            <StarIcon /> <StarIcon /> <StarIcon />
+                                            <StarHalfIcon /> <StarBorderIcon />
+                                            <Typography
+                                                sx={{ marginRight: "20px" }}
+                                            >
+                                                (18)
+                                            </Typography>
+                                        </Box>
+                                        <Typography sx={Description}>
+                                            {/* {item.description} */}
+                                            This simple Italian salad is the only
+                                            side salad recipe you need. It fits
+                                            perfectly with any pasta dish and finds
+                                            good company alongside a whole roasted
+                                            chicken or delicate fish dinner.
                                         </Typography>
                                     </Box>
-                                    <Typography sx={Description}>
-                                      {item.description}
-                                        {/* This simple Italian salad is the only
-                                        side salad recipe you need. It fits
-                                        perfectly with any pasta dish and finds
-                                        good company alongside a whole roasted
-                                        chicken or delicate fish dinner. */}
-                                    </Typography>
-                                </Box>
-                            ))}
+                                    {/* </Box> */}
+                            {/* ))} */}
 
-                            <Box sx={DetailRight}>
-                                <Typography sx={topic}>Directions</Typography>
-                                <Box sx={text}>
-                                    <ol>
-                                        <li>
-                                            Grab a jar. Add the dressing
-                                            ingredients, secure the lid, and
-                                            shake away!
-                                        </li>
-                                        <li>
-                                            Roughly chop the romaine lettuce and
-                                            throw it in a nice big bowl.
-                                        </li>
-                                        <li>
-                                            Add the olives, pepperoncinis,
-                                            onions, and tomatoes.
-                                        </li>
-                                        <li>
-                                            Toss the salad with the dressing!
-                                        </li>
-                                        <li>
-                                            Put as much parmesan cheese and as
-                                            many croutons as you'd like on your
-                                            perfect Italian side salad!
-                                        </li>
-                                    </ol>
-                                </Box>
+                                    <Box sx={DetailRight}>
+                                        <Typography sx={topic}>Directions</Typography>
+                                        <Box sx={text}>
+                                            <ol>
+                                                <li>
+                                                    Grab a jar. Add the dressing
+                                                    ingredients, secure the lid, and
+                                                    shake away!
+                                                </li>
+                                                <li>
+                                                    Roughly chop the romaine lettuce and
+                                                    throw it in a nice big bowl.
+                                                </li>
+                                                <li>
+                                                    Add the olives, pepperoncinis,
+                                                    onions, and tomatoes.
+                                                </li>
+                                                <li>
+                                                    Toss the salad with the dressing!
+                                                </li>
+                                                <li>
+                                                    Put as much parmesan cheese and as
+                                                    many croutons as you'd like on your
+                                                    perfect Italian side salad!
+                                                </li>
+                                            </ol>
+                                        </Box>
 
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: {
-                                            xs: "column",
-                                            sm: "row",
-                                        },
-                                    }}
-                                >
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            marginRight: "80px",
-                                        }}
-                                    >
-                                        <Typography sx={topic}>
-                                            Ingredients
-                                        </Typography>
-                                        <Typography sx={text}>
-                                            <li>Garlic powder</li>
-                                            <li>Dried oregano</li>
-                                            <li>Dries basil</li>
-                                            <li>Salt</li>
-                                            <li>Extra virgin olive oil</li>
-                                            <li>Red wine vinegar</li>
-                                        </Typography>
-                                    </Box>
-                                    <Box
-                                        sx={{
-                                            display: "Flex",
-                                            flexDirection: "column",
-                                        }}
-                                    >
-                                        <Typography sx={topic}>
-                                            Tools
-                                        </Typography>
-                                        <Typography sx={text}>
-                                            <li>Measuring spoons</li>
-                                            <li>A Jar</li>
-                                            <li>Salad bowl</li>
-                                            <li>Salad tongs</li>
-                                        </Typography>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: {
+                                                    xs: "column",
+                                                    sm: "row",
+                                                },
+                                            }}
+                                        >
+                                            <Box
+                                                sx={{
+                                                    display: "flex",
+                                                    flexDirection: "column",
+                                                    marginRight: "80px",
+                                                }}
+                                            >
+                                                <Typography sx={topic}>
+                                                    Ingredients
+                                                </Typography>
+                                                <Typography sx={text}>
+                                                    <li>Garlic powder</li>
+                                                    <li>Dried oregano</li>
+                                                    <li>Dries basil</li>
+                                                    <li>Salt</li>
+                                                    <li>Extra virgin olive oil</li>
+                                                    <li>Red wine vinegar</li>
+                                                </Typography>
+                                            </Box>
+                                            <Box
+                                                sx={{
+                                                    display: "Flex",
+                                                    flexDirection: "column",
+                                                }}
+                                            >
+                                                <Typography sx={topic}>
+                                                    Tools
+                                                </Typography>
+                                                <Typography sx={text}>
+                                                    <li>Measuring spoons</li>
+                                                    <li>A Jar</li>
+                                                    <li>Salad bowl</li>
+                                                    <li>Salad tongs</li>
+                                                </Typography>
+                                            </Box>
+                                        </Box>
                                     </Box>
                                 </Box>
-                            </Box>
-                        </Box>
                     </Grid>
                 </Box>
             </Grid>

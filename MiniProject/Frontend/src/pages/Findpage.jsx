@@ -24,7 +24,7 @@ import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
 
-import RecipeCard from "../components/RecipeCard";
+import RecipeCard from "../components/RecipeCard/RecipeCard";
 
 
 function Findpage() {
@@ -44,13 +44,13 @@ function Findpage() {
 
                 <Box sx={Group_row}>
                     <Typography sx={Title}> Breakfast</Typography>
-                    <RecipeCard />
+                    {/* <RecipeCard /> */}
                 </Box>
                 <Divider flexItem sx={DividerStyle} />
 
                 <Box sx={Group_row}>
                     <Typography sx={Title}> Lunch</Typography>
-                    <RecipeCard />
+                    {/* <RecipeCard /> */}
                 </Box>
                 <Divider flexItem sx={DividerStyle} />
             </Box>

@@ -1,31 +1,30 @@
 import React from "react";
-// import { useHistory } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { Box, Typography, Avatar, Divider, Button, Grid } from "@mui/material";
-import RecipeCard from "../components/RecipeCard";
-import RecipeCardMyAccount from "../components/RecipeCardMyAccount";
+import RecipeCard from "../components/RecipeCard/RecipeCard";
+import RecipeCardMyAccount from "../components/RecipeCard/RecipeCardMyAccount";
 
 function AccountPage() {
-//   const history = useHistory();
 
-  const handleLogout = () => {
-    // Send a POST request to the backend to perform the logout
-    fetch("/logout", {
-      method: "POST",
-      credentials: "include",
-    })
-      .then((response) => {
-        if (response.ok) {
-          // Redirect to the login page
-        //   history.push("/");
-        } else {
-          console.error("Logout failed");
-        }
-      })
-      .catch((error) => {
-        console.error("Logout failed", error);
-      });
-  };
+    const handleLogout = () => {
+        fetch("/logout", {
+          method: "POST",
+          credentials: "include",
+        })
+          .then((response) => {
+            if (response.ok) {
+              // Logout successful
+              // Redirect or perform any other actions
+            } else {
+              // Logout failed
+              console.error("Logout failed");
+            }
+          })
+          .catch((error) => {
+            console.error("Logout failed", error);
+          });
+      };
+      
 
   return (
     <>
@@ -100,7 +99,7 @@ function AccountPage() {
             </Box>
             <Divider flexItem sx={BigBreakLine} />
           </Box>
-          <Button sx={Logout} onClick={handleLogout} href="/">
+          <Button sx={Logout} onClick={handleLogout}>
             Log out
           </Button>
         </Grid>

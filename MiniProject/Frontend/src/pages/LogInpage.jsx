@@ -3,7 +3,6 @@ import { Box, Typography, TextField, Button, Link } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import NavBar from "../components/NavBar";
-import Cookies from "js-cookie";
 
 function LogInPage() {
   const [email, setEmail] = useState("");
@@ -17,8 +16,8 @@ function LogInPage() {
         password
       });
       const { userId, token } = response.data;
-      Cookies.set("token", token);
-      navigate("/");
+      localStorage.setItem("token", token);
+      navigate("/account");
     } catch (error) {
       console.error("Error logging in:", error);
     }

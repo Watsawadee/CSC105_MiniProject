@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import NavBar from "../components/NavBar";
+import NavBar from "../NavBar";
 import {
     Box,
     Typography,
@@ -9,8 +9,8 @@ import {
     Button,
     Divider,
     Stack,
-    Menu,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -23,94 +23,55 @@ import IconButton from "@mui/material/IconButton";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
-import MenuItem from "@mui/material/MenuItem";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import { useNavigate } from "react-router-dom";
 
 function RecipeCard() {
-    // const [recipeData, setRecipeData] = useState([]);
-
-    // useEffect(() => {
-    //     fetchRecipes();
-    // }, []);
-
-    // const fetchRecipes = () => {
-    //     // Make a GET request to fetch recipe data from the backend
-    //     axios
-    //       .get('http://backend-host:backend-port/allrecipe')
-    //       .then((response) => {
-    //         // Update the recipe data state with the fetched data
-    //         setRecipeData(response.data.data);
-    //       })
-    //       .catch((error) => {
-    //         console.error('Error fetching recipe data:', error);
-    //       });
-    //   };
     let navigate = useNavigate();
-    const handleClick = (destination) => {
-        navigate(destination);
+    const handleClick = (id) => {
+        navigate(`/detail/${id}`);
+    };
+    const [recipeData, setRecipeData] = useState([]);
+    const [Fav, setFav] = useState(false);
+
+    useEffect(() => {
+        fetchRecipes();
+    }, []);
+
+    const fetchRecipes = () => {
+        axios.get("http://localhost:8000/sort/breakfast", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then((response) => {
+                // Update the recipe data state with the fetched data
+                setRecipeData(response.data.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching recipe data:", error);
+            });
     };
 
-    const [anchorEl, setAnchorEl] = useState(null);
-
-    const handleMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
 
     return (
         <Box sx={RecipeCardroot}>
-            <ImageList gap={12} row={5}>
+            <ImageList gap={12} rowHeight={200}>
                 <Stack sx={Group_Recipe} direction="row">
-                    {itemData.map((item) => (
-                        <ImageListItem key={item.img} sx={Recipe_content}>
+                    {recipeData.map((item) => (
+                        <ImageListItem
+                            key={item.image_link}
+                            sx={Recipe_content}
+                            onClick={() => handleClick(item.id)}
+                            data-recipe-id={item.recipe_id}
+                        >
                             <img
-                                src={item.img}
+                                src={item.image_link}
                                 // srcSet={item.img}
-                                alt={item.title}
+                                alt={item.recipe_name}
                                 sx={img}
                             />
-                            <IconButton
-                                sx={MoreIconStyle}
-                                onClick={handleMenuOpen}
-                            >
-                                <MoreHorizIcon />
-                            </IconButton>
-                            <Menu
-                                anchorEl={anchorEl}
-                                open={Boolean(anchorEl)}
-                                onClose={handleMenuClose}
-                            >
-                                <MenuItem
-                                    onClick={() => handleClick("/edit")}
-                                    sx={StyleMenuBar}
-                                >
-                                        <EditIcon sx={MenuIconStyle} />
-                                        <Typography sx={MenuText}>
-                                            {" "}
-                                            Edit
-                                        </Typography>
-                                </MenuItem>
-                                <Divider />
-                                <MenuItem
-                                    onClick={() => handleClick("/account")}
-                                    sx={StyleMenuBar}
-                                >
-                                    <DeleteIcon sx={MenuIconStyle} />
-                                    <Typography sx={MenuText}>
-                                        {" "}
-                                        Delete
-                                    </Typography>
-                                </MenuItem>
-                            </Menu>
                             <ImageListItemBar
-                                title={item.title}
-                                subtitle={item.author}
+                                title={item.recipe_name}
+                                subtitle={item.name}
                                 sx={Recipe_detail}
                                 actionIcon={
                                     <IconButton>
@@ -121,12 +82,20 @@ function RecipeCard() {
                                                         <FavoriteBorderIcon
                                                             fontSize="large"
                                                             sx={FavIcon}
+                                                            onClick={() => {
+                                                                setAgree(!agree);
+                                                                console.log(agree);
+                                                            }}
                                                         />
                                                     }
                                                     checkedIcon={
                                                         <FavoriteIcon
                                                             fontSize="large"
                                                             sx={FavIconPink}
+                                                            onClick={() => {
+                                                                setAgree(!agree);
+                                                                console.log(agree);
+                                                            }}
                                                         />
                                                     }
                                                 />
@@ -177,26 +146,6 @@ const RecipeCardroot = {
     overflowX: "auto",
 };
 
-const MoreIconStyle = {
-    position: "absolute",
-    top: "0px",
-    right: "0px",
-    color: "#F8F8F8",
-    backgroundColor: "rgba(0, 0, 0, 0.35)",
-    fontSize: "40px",
-};
-
-const StyleMenuBar = {};
-
-const MenuText = {
-    fontWeight: "medium",
-    fontSize: "20px",
-    fontFamily: "Quicksand",
-    marginLeft: "5px",
-};
-
-const MenuIconStyle = {};
-
 const Group_Recipe = {
     // display: "flex",
     // justifyContent: "flex-start",
@@ -229,7 +178,9 @@ const Group_Recipe = {
 
 const Recipe_detail = {
     transition: "250ms all",
-    background: "",
+    // background: "rgba(0, 0, 0, 0.5)",
+    background:
+        "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(129,129,129,0.2455357142857143) 100%)",
     height: "fit-content",
     fontWeight: "bold",
     fontSize: "20px",
@@ -253,11 +204,11 @@ const Recipe_content = {
 };
 
 const img = {
-    width: 1,
-    height: 1,
-    maxHeight: "120px",
+    width: "100%",
+    height: "100%",
+    // maxHeight: "120px",
     objectFit: "cover",
-    position: "relative",
+    // position: "relative",
 };
 
 const FavIcon = {
@@ -268,66 +219,3 @@ const FavIcon = {
 const FavIconPink = {
     color: "#F67280",
 };
-
-// Data
-const itemData = [
-    {
-        img: "src/assets/Salad.jpg",
-        title: "Salad",
-        author: "@bkristastucchio",
-        favourite: true,
-    },
-
-    {
-        img: "src/assets/Pizza.png",
-        title: "Pizza",
-        author: "@rollelflex_graphy726",
-        favourite: false,
-    },
-    {
-        img: "src/assets/Hamburger.jpg",
-        title: "Hamburger",
-        author: "@helloimnik",
-        favourite: true,
-    },
-    {
-        img: "src/assets/Pancake.jpg",
-        title: "Pancake",
-        author: "@nolanissac",
-        favourite: false,
-    },
-    // {
-    //     img: "src/assets/Spaghetti.jpg",
-    //     title: "Spaghetti",
-    //     author: "@helloimnik",
-    //     favourite: true,
-    // },
-
-    // {
-    //     img: "src/assets/user.png",
-    //     title: "user",
-    //     author: "@helloimnik",
-    //     favourite: true,
-    // },
-
-    // {
-    //     img: "src/assets/Spaghetti.jpg",
-    //     title: "Spaghettiiiiii",
-    //     author: "@helloimnik",
-    //     favourite: true,
-    // },
-
-    // {
-    //     img: "src/assets/Spaghetti.jpg",
-    //     title: "Spaghettiiiiii",
-    //     author: "@helloimnik",
-    //     favourite: true,
-    // },
-
-    // {
-    //     img: "src/assets/Spaghetti.jpg",
-    //     title: "Spaghettiiiiii",
-    //     author: "@helloimnik",
-    //     favourite: true,
-    // },
-];
