@@ -1,97 +1,115 @@
 import React from "react";
+// import { useHistory } from "react-router-dom";
 import NavBar from "../components/NavBar";
-import "../assets/user.png";
 import { Box, Typography, Avatar, Divider, Button, Grid } from "@mui/material";
 import RecipeCard from "../components/RecipeCard";
 import RecipeCardMyAccount from "../components/RecipeCardMyAccount";
 
+function AccountPage() {
+//   const history = useHistory();
 
-function Accountpage() {
-    return (
-        <>
-            <Grid container>
-                <Grid item xs={12}>
-                    <NavBar />
-                </Grid>
+  const handleLogout = () => {
+    // Send a POST request to the backend to perform the logout
+    fetch("/logout", {
+      method: "POST",
+      credentials: "include",
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Redirect to the login page
+        //   history.push("/");
+        } else {
+          console.error("Logout failed");
+        }
+      })
+      .catch((error) => {
+        console.error("Logout failed", error);
+      });
+  };
 
-                <Grid item xs={12} md={5} sx={Account}>
-                    <Avatar
-                        alt="user_photo"
-                        src="../src/assets/user.png"
-                        sx={Picture}
-                    />
-                </Grid>
+  return (
+    <>
+      <Grid container>
+        <Grid item xs={12}>
+          <NavBar />
+        </Grid>
 
-                <Grid item xs={12} md={7} sx={Top}>
-                    <Box sx={{display:"flex", alignItems: "center", justifyContent: "center"}}>
-                        <Typography sx={Header} >
-                            Hello, Mrs. Anna Marie
-                        </Typography>
-                    </Box>
-                    <Box sx={Group_detail}>
-                        <Box sx={Detail}>
-                            <Typography sx={Count}>359</Typography>
-                            <Typography sx={Count_Classifier}>
-                                Recipes
-                            </Typography>
-                        </Box>
-                        <Divider
-                            orientation="vertical"
-                            flexItem
-                            sx={VerticalLine}
-                        />
+        <Grid item xs={12} md={5} sx={Account}>
+          <Avatar
+            alt="user_photo"
+            src="../src/assets/user.png"
+            sx={Picture}
+          />
+        </Grid>
 
-                        <Box sx={Detail}>
-                            <Typography sx={Count}>12K</Typography>
-                            <Typography sx={Count_Classifier}>
-                                Views
-                            </Typography>
-                        </Box>
+        <Grid item xs={12} md={7} sx={Top}>
+          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Typography sx={Header}>
+              Hello, Mrs. Anna Marie
+            </Typography>
+          </Box>
+          <Box sx={Group_detail}>
+            <Box sx={Detail}>
+              <Typography sx={Count}>359</Typography>
+              <Typography sx={Count_Classifier}>
+                Recipes
+              </Typography>
+            </Box>
+            <Divider
+              orientation="vertical"
+              flexItem
+              sx={VerticalLine}
+            />
 
-                        <Divider
-                            orientation="vertical"
-                            flexItem
-                            sx={VerticalLine}
-                        />
+            <Box sx={Detail}>
+              <Typography sx={Count}>12K</Typography>
+              <Typography sx={Count_Classifier}>
+                Views
+              </Typography>
+            </Box>
 
-                        <Box sx={Detail}>
-                            <Typography sx={Count}>18</Typography>
-                            <Typography sx={Count_Classifier}>
-                                Favourite
-                            </Typography>
-                        </Box>
-                    </Box>
-                </Grid>
+            <Divider
+              orientation="vertical"
+              flexItem
+              sx={VerticalLine}
+            />
 
-                <Grid item xs={12}>
-                    <Box sx={Group_Recipe}>
-                        <Divider flexItem sx={BigBreakLine} />
-                        <Box sx={Group_row}>
-                            <Typography sx={Title}> Your Own Recipe</Typography>
-                            <RecipeCardMyAccount/>
-                        </Box>
+            <Box sx={Detail}>
+              <Typography sx={Count}>18</Typography>
+              <Typography sx={Count_Classifier}>
+                Favourite
+              </Typography>
+            </Box>
+          </Box>
+        </Grid>
 
-                        <Divider flexItem sx={Line} />
-                        <Box sx={Group_row}>
-                            <Typography sx={Title}>
-                                Your Favourite Recipe
-                            </Typography>
-                            <RecipeCard />
+        <Grid item xs={12}>
+          <Box sx={Group_Recipe}>
+            <Divider flexItem sx={BigBreakLine} />
+            <Box sx={Group_row}>
+              <Typography sx={Title}> Your Own Recipe</Typography>
+              <RecipeCardMyAccount />
+            </Box>
 
-                        </Box>
-                        <Divider flexItem sx={BigBreakLine} />
-                    </Box>
-                    <Button sx={Logout} href="/">
-                        Log out
-                    </Button>
-                </Grid>
-
-            </Grid >
-        </>
-    );
+            <Divider flexItem sx={Line} />
+            <Box sx={Group_row}>
+              <Typography sx={Title}>
+                Your Favourite Recipe
+              </Typography>
+              <RecipeCard />
+            </Box>
+            <Divider flexItem sx={BigBreakLine} />
+          </Box>
+          <Button sx={Logout} onClick={handleLogout} href="/">
+            Log out
+          </Button>
+        </Grid>
+      </Grid>
+    </>
+  );
 }
 
-export default Accountpage;
+export default AccountPage;
 
 // Style
 const Account = {

@@ -33,7 +33,7 @@ function Findpage() {
         <Box sx={FindPage}>
             <NavBar />
             <Typography sx={Head}> Find a Recipe </Typography>
-            <Search />
+            {/* <Search /> */}
             <Box sx={Content}>
                 <Box sx={Group_row}>
                     <Typography sx={Title}> Recommended</Typography>
@@ -53,33 +53,6 @@ function Findpage() {
                     <RecipeCard />
                 </Box>
                 <Divider flexItem sx={DividerStyle} />
-
-                {/* <Box sx={Group_row}>
-                    <Typography sx={Title}>Top 5 in Breakfast</Typography>
-                    <ImageList sx={Group_Recipe} gap={12}>
-                        {itemData.map((item) => (
-                            <ImageListItem key={item.img} sx={Recipe_content}>
-                                <img
-                                    src={item.img}
-                                    // srcSet={item.img}
-                                    alt={item.title}
-                                    sx={img}
-                                />
-                                <ImageListItemBar
-                                    title={item.title}
-                                    subtitle={item.author}
-                                    sx={Recipe_detail}
-                                    actionIcon={
-                                        <IconButton>
-                                            {item.favourite == true ? <FavoriteBorderIcon fontSize="large" sx={{ color: "#F8F8F8" }} /> : <FavoriteIcon fontSize="large" sx={{ color: "#F67280" }} />}
-                                        </IconButton>
-                                    }
-                                />
-                            </ImageListItem>
-                        ))}
-                    </ImageList>
-                </Box>
-                <Divider flexItem sx={DividerStyle}/> */}
             </Box>
         </Box>
     );

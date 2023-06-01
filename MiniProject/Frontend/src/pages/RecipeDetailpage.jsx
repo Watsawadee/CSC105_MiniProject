@@ -28,7 +28,7 @@ function RecipeDetailpage() {
 
     useEffect(() => {
         axios
-            .get("http://localhost:8000/recipe/:userId")
+            .get("http://localhost:8000/recipes/:recipeId")
             .then((response) => {
                 setItemData(response.data.data);
                 // console.log(response.data.data);
