@@ -43,10 +43,15 @@ function Findpage() {
                 <Divider flexItem sx={DividerStyle} />
 
                 <Box sx={Group_row}>
-                    <Typography sx={Title}> Recommends</Typography>
+                    <Typography sx={Title}> Breakfast</Typography>
                     <RecipeCard />
                 </Box>
+                <Divider flexItem sx={DividerStyle} />
 
+                <Box sx={Group_row}>
+                    <Typography sx={Title}> Lunch</Typography>
+                    <RecipeCard />
+                </Box>
                 <Divider flexItem sx={DividerStyle} />
 
                 {/* <Box sx={Group_row}>

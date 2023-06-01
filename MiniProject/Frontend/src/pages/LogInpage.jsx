@@ -13,24 +13,29 @@ function LogInpage({onLogin}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [token, setToken] = useState("");
+
 
     const navigate = useNavigate();
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = {
-            emailOrName: email,
-            password,
+          emailOrName: email,
+          password,
         };
         try {
-            await Axios.post("/login", data);
-            onLogin();
+          const response = await Axios.post("/login", data);
+          const { token } = response.data; // Assuming the response contains the token
+          localStorage.setItem("token", token); // Store the token in local storage
+          setToken(token); // Update the token state variable
+          onLogin(); // Call the onLogin function if needed
         } catch (error) {
-            setEmail("");
-            setPassword("");
-            console.log("error");
+          setEmail("");
+          setPassword("");
+          console.log("error");
         }
-    };
+      };
+      
 
     const handleClick = (destination) => {
         navigate(destination);
@@ -38,7 +43,7 @@ function LogInpage({onLogin}) {
 
     return (
         <>
-            <NavBar />
+            <NavBar token={token}/>
             <Box sx={BoxContent}>
                 <Box sx={Content}>
                     <Typography sx={Head}>Log in To Your Account</Typography>

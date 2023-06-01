@@ -26,26 +26,32 @@ import { useEffect } from "react";
 
 function RecipeCard() {
     let navigate = useNavigate();
-    const handleClick = (Id) => {
-        navigate(`/detail/${Id}`);
-    };
+    const handleClick = (id) => {
+        navigate(`/detail/${id}`);
+      };
     const [recipeData, setRecipeData] = useState([]);
+    const [Fav, setFav] = useState(false);
 
     useEffect(() => {
         fetchRecipes();
     }, []);
 
     const fetchRecipes = () => {
-        axios
-            .get("http://localhost:8000/recipes/")
-            .then((response) => {
-                // Update the recipe data state with the fetched data
-                setRecipeData(response.data.data);
-            })
-            .catch((error) => {
-                console.error("Error fetching recipe data:", error);
-            });
-    };
+        const token = localStorage.getItem('token'); // Assuming you store the token in local storage after login
+        axios.get("http://localhost:8000/recipes/", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then((response) => {
+          // Update the recipe data state with the fetched data
+          setRecipeData(response.data.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching recipe data:", error);
+        });
+      };
+      
 
     return (
         <Box sx={RecipeCardroot}>
@@ -77,12 +83,20 @@ function RecipeCard() {
                                                         <FavoriteBorderIcon
                                                             fontSize="large"
                                                             sx={FavIcon}
+                                                            onClick={() => {
+                                                                setAgree(!agree);
+                                                                console.log(agree);
+                                                            }}
                                                         />
                                                     }
                                                     checkedIcon={
                                                         <FavoriteIcon
                                                             fontSize="large"
                                                             sx={FavIconPink}
+                                                            onClick={() => {
+                                                                setAgree(!agree);
+                                                                console.log(agree);
+                                                            }}
                                                         />
                                                     }
                                                 />

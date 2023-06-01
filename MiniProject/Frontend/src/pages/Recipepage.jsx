@@ -10,17 +10,35 @@ function Recipepage() {
             <Box sx={BoxContent}>
                 <Box sx={Content}>
                     <Box sx={Group_row}>
-                        <Typography sx={Title}> Recommended</Typography>
+                        <Typography sx={Title}> All Recipe</Typography>
                         <RecipeCard />
                     </Box>
                     <Divider flexItem sx={DividerStyle} />
 
                     <Box sx={Group_row}>
-                        <Typography sx={Title}> Recommends</Typography>
+                        <Typography sx={Title}> Breakfast</Typography>
                         <RecipeCard />
                     </Box>
-
                     <Divider flexItem sx={DividerStyle} />
+
+                    <Box sx={Group_row}>
+                        <Typography sx={Title}> Lunch</Typography>
+                        <RecipeCard />
+                    </Box>
+                    <Divider flexItem sx={DividerStyle} />
+
+                    <Box sx={Group_row}>
+                        <Typography sx={Title}> Dinner</Typography>
+                        <RecipeCard />
+                    </Box>
+                    <Divider flexItem sx={DividerStyle} />
+
+                    <Box sx={Group_row}>
+                        <Typography sx={Title}> Gluten-Free</Typography>
+                        <RecipeCard />
+                    </Box>
+                    <Divider flexItem sx={DividerStyle} />
+
                 </Box>
             </Box>
         </div>

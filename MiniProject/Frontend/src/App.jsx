@@ -14,6 +14,7 @@ import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Axios from "./AxiosInstance";
 
 
+
 const ProtectedRoute = ({ element: Element, ...rest }) => {
     const [isLogin, setIsLogin] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -56,23 +57,23 @@ function App() {
     };
     return (
         <>
-      {/* <Routes>
+      <Routes>
         <Route path="/login" element={<LogInpage />} />
         <Route path="/signup" element={<CreateAccountpage />} />
-        <ProtectedRoute path="/" element={<Findpage />} />
-        <ProtectedRoute
+        <Route path="/" element={<Findpage />} />
+        <Route
           path="/detail/:recipeId"
           element={<RecipeDetailpage />}
         />
-        <ProtectedRoute path="/recipe" element={<Recipepage />} />
-        <ProtectedRoute path="/about" element={<Aboutpage />} />
-        <ProtectedRoute path="/account" element={<Accountpage />} />
-        <ProtectedRoute path="/create" element={<Createpage />} />
-        <ProtectedRoute path="/edit" element={<Editpage />} />
+        <Route path="/recipe" element={<Recipepage />} />
+        <Route path="/about" element={<Aboutpage />} />
+        <Route path="/account" element={<Accountpage />} />
+        <Route path="/create" element={<Createpage />} />
+        <Route path="/edit" element={<Editpage />} />
         <Route path="/*" element={<Navigate to="/login" replace />} />
-      </Routes> */}
+      </Routes>
 
-            {isLogin ? (
+            {/* {isLogin ? (
                 <Routes>
                     <Route exect path="/" element={<Findpage />} />
                     <Route
@@ -100,7 +101,7 @@ function App() {
                         element={<Navigate to={"/login"} replace />}
                     />
                 </Routes>
-            )}
+            )} */}
         </>
     );
 }

@@ -38,20 +38,25 @@ const secretKey = '4290620fbf80c32ef6d0d71c80ebf0e6d05f78d2f48f10f224eec379e812f
 const protectedRoute = require('./Routes/protected_route')(secretKey);
 const loginRoute = require('./Routes/endpoint_login')(connection, secretKey);
 const signupRoute = require('./Routes/endpoint_signup')(connection);
+const CreateRoute = require('./Routes/endpoint_create')(connection);
+const EditRoute = require('./Routes/endpoint_edit')(connection);
+const DeleteRoute = require('./Routes/endpoint_delete')(connection);
+const UserRoute = require('./Routes/endpoint_users')(connection);
+const SortRoute = require('./Routes/endpoint_sort')(connection);
 // const logoutRoute = require('./Routes/endpoint_logout')(connection);
 const RecipeRoute = require('./Routes/endpoint_recipes')(connection);
-// const CreateRecipeRoute = require('./Routes/endpoint_CreateRecipe')(connection, secretKey);
-// const EditRecipeRoute = require('./Routes/endpoint_EditRecipe')(connection, secretKey);
-// const DeleteRecipeRoute = require('./Routes/endpoint_DeleteRecipe')(connection, secretKey);
 // const RecipeRoute = require('./Routes/endpoint_recipe')(connection);
 
 app.use('/protected', protectedRoute);
 app.use('/login', loginRoute);
 app.use('/signup', signupRoute);
 // app.use('/logout', logoutRoute);
-app.use('/recipes', protectedRoute, RecipeRoute);
-// app.use('/create', CreateRecipeRoute);
-// app.use('/edit', EditRecipeRoute);
+app.use('/recipes', RecipeRoute);
+app.use('/create', CreateRoute);
+app.use('/edit', EditRoute);
+app.use('/delete', DeleteRoute);
+app.use('/user', UserRoute);
+app.use('/sort', SortRoute);
 // app.use('/delete', DeleteRecipeRoute);
 // app.use('/recipe', RecipeRoute);
 

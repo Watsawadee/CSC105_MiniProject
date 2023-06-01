@@ -1,97 +1,79 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 
 function Search() {
-    const [searchQuery, setSearchQuery] = useState("");
-    const dataFiltered = filterData(searchQuery, itemData);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [recipeData, setRecipeData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
-    return (
-        <>
-            {/* <div
-                style={{
-                    display: "flex",
-                    alignSelf: "center",
-                    justifyContent: "center",
-                    flexDirection: "column",
-                }}
-            ></div> */}
+  useEffect(() => {
+    fetchRecipes();
+  }, []);
 
-            <SearchBar
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-            />
+  useEffect(() => {
+    setFilteredData(filterData(searchQuery, recipeData));
+  }, [searchQuery, recipeData]);
 
-            <div style={{ padding: 3 }}>
-                {itemData.map((item) => (
-                    <div
-                        style={SearchBarStyle}
-                        key={item.title}
-                    >
-                        {/* {d} */}
-                    </div>
-                ))}
-            </div>
-        </>
-    );
+  const fetchRecipes = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/recipes");
+      setRecipeData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <>
+      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+
+      <div style={{ padding: 3 }}>
+        {filteredData.map((recipe) => (
+          <div style={SearchBarStyle} key={recipe.id}>
+            {recipe.title}
+          </div>
+        ))}
+      </div>
+    </>
+  );
 }
 
 export default Search;
 
-const SearchBar = ({ setSearchQuery }) => (
-    <form>
-        <IconButton type="submit" aria-label="search">
-            <SearchIcon style={{ fill: "blue" }} />
-        </IconButton>
-        <TextField
-            onInput={(e) => {
-                setSearchQuery(e.target.value);
-            }}
-            placeholder="Salad, Breakfast, Vegetarian, Gluten-Free"
-            size="small"
-        />
-    </form>
+const SearchBar = ({ searchQuery, setSearchQuery }) => (
+  <form>
+    <IconButton type="submit" aria-label="search">
+      <SearchIcon style={{ fill: "blue" }} />
+    </IconButton>
+    <TextField
+      onInput={(e) => {
+        setSearchQuery(e.target.value);
+      }}
+      placeholder="Search recipes"
+      size="small"
+    />
+  </form>
 );
 
-const filterData = (query, itemData) => {
-    if (!query) {
-        return itemData;
-    } else {
-        return itemData.filter((item) => item.toLowerCase().includes(query));
-    }
+const filterData = (query, recipeData) => {
+  if (!query) {
+    return recipeData;
+  } else {
+    return recipeData.filter((recipe) =>
+      recipe.title.toLowerCase().includes(query.toLowerCase())
+    );
+  }
 };
 
-const itemData = [
-    "Paris",
-    "London",
-    "New York",
-    "Tokyo",
-    "Berlin",
-    "Buenos Aires",
-    "Cairo",
-    "Canberra",
-    "Rio de Janeiro",
-    "Dublin",
-];
-
-const SearchBarStyle={
-    fontFamily: "Quicksand",
-    color: "#F8B195",
-    fontSize: "100px",
-    fontWeight: "Bold",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-
-    // padding: 5,
-    // justifyContent: "normal",
-    // fontSize: 20,
-    // color: "blue",
-    // margin: 1,
-    // width: "250px",
-    // BorderColor: "green",
-    // borderWidth: "10px",
-
-}
+const SearchBarStyle = {
+  fontFamily: "Quicksand",
+  color: "#F8B195",
+  fontSize: "100px",
+  fontWeight: "bold",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
