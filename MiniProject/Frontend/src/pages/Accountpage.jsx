@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import { Box, Typography, Avatar, Divider, Button, Grid } from "@mui/material";
 import RecipeCard from "../components/RecipeCard/RecipeCard";
 import RecipeCardMyAccount from "../components/RecipeCard/RecipeCardMyAccount";
+import CreateCard from "../components/RecipeCard/CreateCard";
 
 function AccountPage() {
 
@@ -88,6 +89,7 @@ function AccountPage() {
             <Box sx={Group_row}>
               <Typography sx={Title}> Your Own Recipe</Typography>
               <RecipeCardMyAccount />
+              <CreateCard />
             </Box>
 
             <Divider flexItem sx={Line} />
