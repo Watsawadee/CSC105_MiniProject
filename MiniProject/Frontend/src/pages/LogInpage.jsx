@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { Box, Typography, TextField, Button, Link } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import NavBar from "../components/NavBar";
+import NavBarLogin from "../components/NavBarLogin";
 
-function LogInPage() {
+function LogInPage({onSignIn}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  let navigate = useNavigate();
+
+  // const handleClick = () => {
+  //     navigate(`/about`);
+  // };
 
   const handleLogin = async () => {
     try {
@@ -17,15 +21,21 @@ function LogInPage() {
       });
       const { userId, token } = response.data;
       localStorage.setItem("token", token);
+      localStorage.setItem("userId", userId);
+      onSignIn();
       navigate("/account");
+      // handleClick();
+      // console.log("Hereeeeeee");
     } catch (error) {
+      // console.log(token);
       console.error("Error logging in:", error);
+      
     }
   };
 
   return (
     <>
-      <NavBar />
+      <NavBarLogin />
       <Box sx={styles.boxContent}>
         <Box sx={styles.content}>
           <Typography sx={styles.head}>Log in To Your Account</Typography>
@@ -112,13 +122,13 @@ const styles = {
     },
     head: {
         fontFamily: "Quicksand",
-        fontSize: "60px",
+        fontSize: {xs:"28px",md:"50px"},
         fontWeight: "bold",
         color: "#6C5B7B",
     },
     text: {
         fontFamily: "Quicksand",
-        fontSize: "30px",
+        fontSize: {xs:"24px",md:"40px"},
         fontWeight: "bold",
         color: "#6C5B7B",
     },
@@ -131,7 +141,7 @@ const styles = {
             color: "#6C5B7B",
             fontSize: "20px",
         },
-        width: "500px",
+        width: {xs:"250px",md:"400px"},
         height: "50px",
         margin: "5px",
     },
@@ -141,7 +151,7 @@ const styles = {
     submit: {
         fontFamily: "Quicksand",
         fontWeight: "bold",
-        fontSize: "30px",
+        fontSize: {xs:"25px",md:"35px"},
         borderRadius: "40px",
         backgroundColor: "#6C5B7B",
         color: "#F8F8F8",
@@ -157,7 +167,7 @@ const styles = {
     signup: {
         fontFamily: "Quicksand",
         fontWeight: "bold",
-        fontSize: "30px",
+        fontSize: {xs:"25px",md:"35px"},
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",

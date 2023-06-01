@@ -26,8 +26,9 @@ import { useEffect } from "react";
 
 function RecipeCard() {
     let navigate = useNavigate();
-    const handleClick = (id) => {
-        navigate(`/detail/${id}`);
+    const handleClick = (recipeId) => {
+        console.log(recipeId);
+        navigate(`/detail/${recipeId}`);
     };
     const [recipeData, setRecipeData] = useState([]);
     const [Fav, setFav] = useState(false);
@@ -38,6 +39,7 @@ function RecipeCard() {
 
     const fetchRecipes = () => {
         const token = localStorage.getItem('token'); // Assuming you store the token in local storage after login
+
         axios.get("http://localhost:8000/recipes/", {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -46,12 +48,12 @@ function RecipeCard() {
             .then((response) => {
                 // Update the recipe data state with the fetched data
                 setRecipeData(response.data.data);
+                // console.log(recipeData);
             })
             .catch((error) => {
                 console.error("Error fetching recipe data:", error);
             });
     };
-
 
     return (
         <Box sx={RecipeCardroot}>

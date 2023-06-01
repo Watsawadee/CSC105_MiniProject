@@ -5,8 +5,8 @@ const router = express.Router();
 
 module.exports = (connection) => {
   router.post("/:user_id", (req, res) => {
-    const user_id = req.params.user_id; // Get the user_id from the request params
-
+    const user_id = req.params; // Get the user_id from the request params
+    console.log(user_id.user_id);
     const {
       recipe_name,
       description,
@@ -33,7 +33,7 @@ module.exports = (connection) => {
         is_favourite,
         rating,
         likes,
-        user_id,
+        user_id.user_id,
         Breakfast,
         lunch,
         Gluten_Free,

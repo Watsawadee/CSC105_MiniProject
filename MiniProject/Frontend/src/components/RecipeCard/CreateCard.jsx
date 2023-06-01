@@ -11,18 +11,8 @@ import {
     Stack,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
-import IconButton from "@mui/material/IconButton";
-import { useState } from "react";
-import axios from "axios";
-import { useEffect } from "react";
 import AddIcon from '@mui/icons-material/Add';
 
 function CreateCard() {
@@ -30,9 +20,6 @@ function CreateCard() {
     const handleClick = () => {
         navigate("/create");
     };
-
-
-
     return (
         <Box>
             <ImageList gap={12} rowHeight={200}>

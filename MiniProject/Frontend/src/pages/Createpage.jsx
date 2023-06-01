@@ -33,7 +33,9 @@ function CreatePage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const user_id = "5"; // Replace "USER_ID" with the actual user ID
+    const user_id = localStorage.getItem("userId");
+    
+    // const user_id = "5"; // Replace "USER_ID" with the actual user ID
 
     // Make a POST request to the backend API
     axios

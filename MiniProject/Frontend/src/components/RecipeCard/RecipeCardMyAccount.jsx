@@ -28,13 +28,12 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
-
+import CreateCard from "../RecipeCard/CreateCard";
 
 function RecipeCard() {
-
     let navigate = useNavigate();
-    const handleClick = (destination) => {
-        navigate(destination);
+    const handleClick = (id) => {
+        navigate(`/detail/${id}`);
     };
     const [recipeData, setRecipeData] = useState([]);
     const [Fav, setFav] = useState(false);
@@ -42,6 +41,8 @@ function RecipeCard() {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleMenuOpen = (event) => {
+        event.stopPropagation();
+        // event.preventDefault();
         setAnchorEl(event.currentTarget);
     };
 
@@ -54,12 +55,13 @@ function RecipeCard() {
     }, []);
 
     const fetchRecipes = () => {
-        const token = localStorage.getItem('token'); // Assuming you store the token in local storage after login
-        axios.get("http://localhost:8000/recipes/", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
+        const token = localStorage.getItem("token"); // Assuming you store the token in local storage after login
+        axios
+            .get("http://localhost:8000/recipes/", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
             .then((response) => {
                 // Update the recipe data state with the fetched data
                 setRecipeData(response.data.data);
@@ -73,18 +75,25 @@ function RecipeCard() {
         // Make the HTTP request to delete the recipe
         console.log("Recipe ID:", recipeId);
         axios
-            .delete(`/api/recipes/${recipeId}`)
+            .delete(`/recipes/${recipeId}`)
             .then((response) => {
                 if (response.data.success) {
                     console.log("Recipe deleted successfully");
                     // Refresh the recipe list or perform any other necessary actions
-                    setRecipes(recipes.filter((recipe) => recipe.id !== recipeId));
+                    setRecipes(
+                        recipes.filter((recipe) => recipe.id !== recipeId)
+                    );
                 } else {
-                    console.log("Recipe deletion failed: " + response.data.message);
+                    console.log(
+                        "Recipe deletion failed: " + response.data.message
+                    );
                 }
             })
             .catch((error) => {
-                console.error("An error occurred while deleting the recipe:", error);
+                console.error(
+                    "An error occurred while deleting the recipe:",
+                    error
+                );
             });
     };
 
@@ -110,29 +119,31 @@ function RecipeCard() {
                             >
                                 <MoreHorizIcon />
                             </IconButton>
-                             <Menu
+                            <Menu
                                 anchorEl={anchorEl}
                                 open={Boolean(anchorEl)}
                                 onClose={handleMenuClose}
+                                sx={MenuBar}
                             >
                                 <MenuItem
-                                    onClick={() => handleClick("/edit")}
+                                    onClick={(e) => handleClick("/edit")}
                                     sx={StyleMenuBar}
                                 >
-                                        <EditIcon sx={MenuIconStyle} />
-                                        <Typography sx={MenuText}>
-                                            {" "}
-                                            Edit
-                                        </Typography>
+                                    <EditIcon sx={MenuIconStyle} />
+                                    <Typography sx={MenuText}> Edit</Typography>
                                 </MenuItem>
                                 <Divider />
                                 <MenuItem
-                                    onClick={() => handleClick("/account")}
+                                    onClick={(e) => handleClick("/account")}
                                     sx={StyleMenuBar}
                                 >
                                     <DeleteIcon sx={MenuIconStyle} />
-                                    <Typography sx={MenuText}>
-                                        {" "}
+                                    <Typography
+                                        sx={MenuText}
+                                        onClick={() => onDelete(item.recipe.id)}
+                                        variant="outlined"
+                                        color="error"
+                                    >
                                         Delete
                                     </Typography>
                                 </MenuItem>
@@ -151,8 +162,12 @@ function RecipeCard() {
                                                             fontSize="large"
                                                             sx={FavIcon}
                                                             onClick={() => {
-                                                                setAgree(!agree);
-                                                                console.log(agree);
+                                                                setFav(
+                                                                    !Fav
+                                                                );
+                                                                console.log(
+                                                                    Fav
+                                                                );
                                                             }}
                                                         />
                                                     }
@@ -161,8 +176,12 @@ function RecipeCard() {
                                                             fontSize="large"
                                                             sx={FavIconPink}
                                                             onClick={() => {
-                                                                setAgree(!agree);
-                                                                console.log(agree);
+                                                                setFav(
+                                                                    !Fav
+                                                                );
+                                                                console.log(
+                                                                    Fav
+                                                                );
                                                             }}
                                                         />
                                                     }
@@ -174,11 +193,11 @@ function RecipeCard() {
                             />
                         </ImageListItem>
                     ))}
+                    <CreateCard />
                 </Stack>
             </ImageList>
         </Box>
     );
-
 }
 
 export default RecipeCard;
@@ -204,6 +223,10 @@ const MenuText = {
     fontSize: "20px",
     fontFamily: "Quicksand",
     marginLeft: "5px",
+};
+
+const MenuBar = {
+    zIndex: "tooltip",
 };
 
 const MenuIconStyle = {};
@@ -238,7 +261,6 @@ const Group_Recipe = {
     // backgroundColor: "aqua",
 };
 
-
 const Recipe_detail = {
     transition: "250ms all",
     // background: "rgba(0, 0, 0, 0.5)",
@@ -263,6 +285,7 @@ const Recipe_content = {
     textAlign: "center",
     width: { xs: "200px", sm: "250px" },
     height: "1000px",
+    zIndex: "modal",
     // boxShadow: 2,
 };
 

@@ -13,56 +13,85 @@ import Editpage from "./pages/Editpage";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Axios from "./AxiosInstance";
 
+// const ProtectedRoute = ({ element: Element, ...rest }) => {
+    // const [isLogin, setIsLogin] = useState(localStorage.getItem("token"));
+    // const [userLogin, setUserLogin] = useState(false);
+    // const navigate = useNavigate();
 
+    // useEffect(() => {
+    //     fetchData();
+    // }, []);
 
-const ProtectedRoute = ({ element: Element, ...rest }) => {
-    const [isLogin, setIsLogin] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate();
+    // const fetchData = async () => {
+    //     Axios.get("/protected")
+    //         .then((res) => {
+    //             console.log(res);
+    //             setIsLogin(res.data.success);
+    //             setIsLoading(false);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //             setIsLogin(false);
+    //             setIsLoading(false);
+    //         });
+    // };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    const fetchData = async () => {
-        Axios.get("/protected")
-            .then((res) => {
-                console.log(res);
-                setIsLogin(res.data.success);
-                setIsLoading(false);
-            })
-            .catch((err) => {
-                console.log(err);
-                setIsLogin(false);
-                setIsLoading(false);
-            });
-    };
-
-    if (isLoading) {
-        return <>Loading</>;
-    }
-    if (isLogin) {
-        return <Route {...rest} element={<Element />} />;
-    } else {
-        return <Navigate to="/login" replace />;
-    }
-};
+    // if (isLoading) {
+    //     return <>Loading</>;
+    // }
+    // if (isLogin) {
+    //     return <Route {...rest} element={<Element />} />;
+    // } else {
+    //     return <Navigate to="/login" replace />;
+    // }
+// };
 
 function App() {
-    const [isLogin, setIsLogin] = useState(false);
-    const navigate = useNavigate();
-    const handleLogin = async () => {
-        setIsLogin(true);
-        navigate("/");
-    };
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [userLogin, setUserLogin] = useState(false);
+
+    function checkAuthentication() {
+        const token = localStorage.getItem("token");
+        if (token) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
+        setIsLoading(false);
+      }
+    
+      useEffect(() => {
+        checkAuthentication();
+        setIsLoading(false); // Set isLoading to false after checking authentication
+    }, []);
+    
+      function onSignOut() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        checkAuthentication();
+      }
+      function onSignIn() {
+        checkAuthentication();
+      }
+
+    // const navigate = useNavigate();
+    // const handleLogin = async () => {
+    //     setIsLogin(true);
+    //     navigate("/");
+    // };
+
+    if (isLoading) {
+        return <> Loading </>
+    }
     return (
         <>
-            <Routes>
+            {/* <Routes>
                 <Route path="/login" element={<LogInpage />} />
                 <Route path="/signup" element={<CreateAccountpage />} />
                 <Route path="/" element={<Findpage />} />
                 <Route
-                    path="/detail/:recipeId"
+                    path="/recipes/:recipeId"
                     element={<RecipeDetailpage />}
                 />
                 <Route path="/recipe" element={<Recipepage />} />
@@ -71,9 +100,9 @@ function App() {
                 <Route path="/create" element={<Createpage />} />
                 <Route path="/edit" element={<Editpage />} />
                 <Route path="/*" element={<Navigate to="/login" replace />} />
-            </Routes>
+            </Routes> */}
 
-            {/* {isLogin ? (
+            {isAuthenticated ? (
                 <Routes>
                     <Route exect path="/" element={<Findpage />} />
                     <Route
@@ -82,9 +111,13 @@ function App() {
                     />
                     <Route path="/recipe" element={<Recipepage />} />
                     <Route path="/about" element={<Aboutpage />} />
-                    <Route path="/account" element={<Accountpage />} />
+                    <Route path="/account" element={<Accountpage onSignOut={onSignOut} />} />
                     <Route path="/create" element={<Createpage />} />
                     <Route path="/edit" element={<Editpage />} />
+                    
+                    {/* <Route path="/login" element={<Navigate to="/account"> </Navigate>} /> */}
+
+                    {/* <Route path="/*" element={<Navigate to="/account"> </Navigate>} /> */}
                 </Routes>
             ) : (
                 <Routes>
@@ -92,7 +125,7 @@ function App() {
                         exect
                         path="/login"
                         element={
-                            <LogInpage onLogin={handleLogin} />
+                            <LogInpage userLogin={userLogin} setUserLogin={setUserLogin} onSignIn={onSignIn} />
                         }
                     />
                     <Route path="/signup" element={<CreateAccountpage />} />
@@ -101,7 +134,7 @@ function App() {
                         element={<Navigate to={"/login"} replace />}
                     />
                 </Routes>
-            )} */}
+            )}
         </>
     );
 }

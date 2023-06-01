@@ -25,7 +25,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
 
 import RecipeCard from "../components/RecipeCard/RecipeCard";
-
+import RecipeCardBreakfast from "../components/RecipeCard/RecipeBreakfast";
 
 function Findpage() {
 
@@ -44,7 +44,7 @@ function Findpage() {
 
                 <Box sx={Group_row}>
                     <Typography sx={Title}> Breakfast</Typography>
-                    {/* <RecipeCard /> */}
+                    <RecipeCardBreakfast />
                 </Box>
                 <Divider flexItem sx={DividerStyle} />
 

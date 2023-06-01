@@ -1,8 +1,3 @@
-// ค้างหน้านี้
-// ตรง title not display
-// 
-
-
 import React from "react";
 import NavBar from "../components/NavBar";
 import { Carousel } from "react-responsive-carousel";
@@ -50,7 +45,7 @@ function RecipeDetailpage() {
                         {/* <h1>Recipe Detail page</h1> */}
                         <Box sx={ImageBox}>
                             <Carousel autoPlay interval={3000} infiniteLoop>
-                                {itemData.map((item) => (
+                                {itemData.length > 0 && itemData.map((item) => (
                                     <ImageListItem key={item.id} sx={Image}>
                                         <img
                                             src={item.image_link}
@@ -89,8 +84,8 @@ function RecipeDetailpage() {
 
                     <Grid item xs={6}>
                         <Box sx={Detail}>
-                            {/* {itemData.map((item) => ( */}
-                                {/* <Box key={item.id}> */}
+                            {/* {itemData.map((item, index) => (
+                                <Box key={index}> */}
                                     <Box>
                                         <Typography sx={Title}>
                                             Italian Salad
@@ -119,12 +114,11 @@ function RecipeDetailpage() {
                                             chicken or delicate fish dinner.
                                         </Typography>
                                     </Box>
-                                    {/* </Box> */}
-                            {/* ))} */}
 
                                     <Box sx={DetailRight}>
                                         <Typography sx={topic}>Directions</Typography>
                                         <Box sx={text}>
+                                            {/* {item.direction} */}
                                             <ol>
                                                 <li>
                                                     Grab a jar. Add the dressing
@@ -149,7 +143,7 @@ function RecipeDetailpage() {
                                                 </li>
                                             </ol>
                                         </Box>
-
+                                        
                                         <Box
                                             sx={{
                                                 display: "flex",
@@ -170,6 +164,7 @@ function RecipeDetailpage() {
                                                     Ingredients
                                                 </Typography>
                                                 <Typography sx={text}>
+                                                    {/* {item.ingredient} */}
                                                     <li>Garlic powder</li>
                                                     <li>Dried oregano</li>
                                                     <li>Dries basil</li>
@@ -188,6 +183,7 @@ function RecipeDetailpage() {
                                                     Tools
                                                 </Typography>
                                                 <Typography sx={text}>
+                                                    {/* {item.tools} */}
                                                     <li>Measuring spoons</li>
                                                     <li>A Jar</li>
                                                     <li>Salad bowl</li>
@@ -196,7 +192,9 @@ function RecipeDetailpage() {
                                             </Box>
                                         </Box>
                                     </Box>
-                                </Box>
+                                {/* </Box> */}
+                            {/* ))} */}
+                            </Box>
                     </Grid>
                 </Box>
             </Grid>

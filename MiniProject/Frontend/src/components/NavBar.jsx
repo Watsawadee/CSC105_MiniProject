@@ -67,7 +67,7 @@ function NavBar() {
                             ABOUT US
                         </Button>
                         <Button
-                            onClick={() => handleClick("/login")}
+                            onClick={() => handleClick("/account")}
                             sx={StyleMenuBar}
                         >
                             ACCOUNT
@@ -97,7 +97,7 @@ function NavBar() {
                     ABOUT US
                 </MenuItem>
                 <MenuItem
-                    onClick={() => handleClick("/login")}
+                    onClick={() => handleClick("/account")}
                     sx={StyleMenuBarHamburger}
                 >
                     ACCOUNT
