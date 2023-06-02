@@ -37,13 +37,14 @@ function RecipeCard() {
     }, []);
 
     const fetchRecipes = () => {
-        const token = localStorage.getItem('token'); // Assuming you store the token in local storage after login
+        const token = localStorage.getItem("token");
 
-        axios.get("http://localhost:8000/recipes/", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
+        axios
+            .get("http://localhost:8000/sort/lunch/", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
             .then((response) => {
                 // Update the recipe data state with the fetched data
                 setRecipeData(response.data.data);
@@ -86,7 +87,9 @@ function RecipeCard() {
                                                             sx={FavIcon}
                                                             onClick={() => {
                                                                 setFav(!Fav);
-                                                                console.log(Fav);
+                                                                console.log(
+                                                                    Fav
+                                                                );
                                                             }}
                                                         />
                                                     }
@@ -96,7 +99,9 @@ function RecipeCard() {
                                                             sx={FavIconPink}
                                                             onClick={() => {
                                                                 setFav(!Fav);
-                                                                console.log(Fav);
+                                                                console.log(
+                                                                    Fav
+                                                                );
                                                             }}
                                                         />
                                                     }
@@ -196,67 +201,3 @@ const FavIcon = {
 const FavIconPink = {
     color: "#F67280",
 };
-
-// Data
-
-// const itemData = [
-//     {
-//         img: "src/assets/Salad.jpg",
-//         title: "Salad",
-//         author: "@bkristastucchio",
-//         favourite: true,
-//     },
-
-//     {
-//         img: "src/assets/Pizza.png",
-//         title: "Pizza",
-//         author: "@rollelflex_graphy726",
-//         favourite: false,
-//     },
-//     {
-//         img: "src/assets/Hamburger.jpg",
-//         title: "Hamburger",
-//         author: "@helloimnik",
-//         favourite: true,
-//     },
-//     {
-//         img: "src/assets/Pancake.jpg",
-//         title: "Pancake",
-//         author: "@nolanissac",
-//         favourite: false,
-//     },
-// {
-//     img: "src/assets/Spaghetti.jpg",
-//     title: "Spaghetti",
-//     author: "@helloimnik",
-//     favourite: true,
-// },
-
-// {
-//     img: "src/assets/user.png",
-//     title: "user",
-//     author: "@helloimnik",
-//     favourite: true,
-// },
-
-// {
-//     img: "src/assets/Spaghetti.jpg",
-//     title: "Spaghettiiiiii",
-//     author: "@helloimnik",
-//     favourite: true,
-// },
-
-// {
-//     img: "src/assets/Spaghetti.jpg",
-//     title: "Spaghettiiiiii",
-//     author: "@helloimnik",
-//     favourite: true,
-// },
-
-// {
-//     img: "src/assets/Spaghetti.jpg",
-//     title: "Spaghettiiiiii",
-//     author: "@helloimnik",
-//     favourite: true,
-// },
-// ];

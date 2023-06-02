@@ -113,7 +113,7 @@ function App() {
                     <Route path="/about" element={<Aboutpage />} />
                     <Route path="/account" element={<Accountpage onSignOut={onSignOut} />} />
                     <Route path="/create" element={<Createpage />} />
-                    <Route path="/edit" element={<Editpage />} />
+                    <Route path="/edit/:recipeId" element={<Editpage />} />
                     
                     {/* <Route path="/login" element={<Navigate to="/account"> </Navigate>} /> */}
 

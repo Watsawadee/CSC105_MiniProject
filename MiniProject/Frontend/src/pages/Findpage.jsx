@@ -26,6 +26,7 @@ import TextField from "@mui/material/TextField";
 
 import RecipeCard from "../components/RecipeCard/RecipeCard";
 import RecipeCardBreakfast from "../components/RecipeCard/RecipeBreakfast";
+import RecipeCardLunch from "../components/RecipeCard/RecipeCardLunch";
 
 function Findpage() {
 
@@ -50,7 +51,7 @@ function Findpage() {
 
                 <Box sx={Group_row}>
                     <Typography sx={Title}> Lunch</Typography>
-                    {/* <RecipeCard /> */}
+                    <RecipeCardLunch />
                 </Box>
                 <Divider flexItem sx={DividerStyle} />
             </Box>

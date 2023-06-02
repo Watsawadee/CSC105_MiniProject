@@ -7,8 +7,10 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import Upload_img from "../components/Upload_img";
+import { useNavigate } from "react-router-dom";
 
 function CreatePage() {
+  let navigate = useNavigate();
   const [recipeData, setRecipeData] = useState({
     recipe_name: "",
     description: "",
@@ -31,10 +33,19 @@ function CreatePage() {
     }));
   };
 
+  const validateForm = () => {
+    if(!recipeData.recipe_name || !recipeData.recipe_name.trim()){
+      console.log("Fill the name");
+      return false;
+    }
+    return true;
+  }
   const handleSubmit = (event) => {
+    if(!validateForm()) return;
+
     event.preventDefault();
     const user_id = localStorage.getItem("userId");
-    
+
     // const user_id = "5"; // Replace "USER_ID" with the actual user ID
 
     // Make a POST request to the backend API
@@ -42,13 +53,10 @@ function CreatePage() {
       .post(`http://localhost:8000/create/${user_id}`, recipeData)
       .then((response) => {
         console.log(response.data);
-        // Handle success response
-        // Show a success message, redirect, or perform any other actions
+        navigate("/account");
       })
       .catch((error) => {
         console.error(error);
-        // Handle error response
-        // Show an error message or perform any other actions
       });
   };
 

@@ -1,21 +1,12 @@
-import React, { Component } from "react";
-import NavBar from "../NavBar";
+import React from "react";
 import {
     Box,
-    Typography,
-    Grid,
-    Card,
-    ListItem,
-    Button,
-    Divider,
     Stack,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
@@ -23,37 +14,36 @@ import IconButton from "@mui/material/IconButton";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function RecipeCard() {
     let navigate = useNavigate();
-    const handleClick = (id) => {
-        navigate(`/detail/${id}`);
-    };
     const [recipeData, setRecipeData] = useState([]);
     const [Fav, setFav] = useState(false);
 
-    useEffect(() => {
+    
+      useEffect(() => {
         fetchRecipes();
-    }, []);
-
-    const fetchRecipes = () => {
-        const token = localStorage.getItem('token'); // Assuming you store the token in local storage after login
-
-        axios.get("http://localhost:8000/recipes/", {
+      }, []);
+    
+      const fetchRecipes = () => {
+        const token = localStorage.getItem("token");
+        const user_id = localStorage.getItem("userId");
+        console.log(user_id);
+        axios
+          .get(`http://localhost:8000/recipes/Fav/${user_id}`, {
             headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-            .then((response) => {
-                // Update the recipe data state with the fetched data
-                setRecipeData(response.data.data);
-                // console.log(recipeData);
-            })
-            .catch((error) => {
-                console.error("Error fetching recipe data:", error);
-            });
-    };
-
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            setRecipeData(response.data.data);
+            // console.log(response.data.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching recipe data:", error);
+          });
+      };
     return (
         <Box sx={RecipeCardroot}>
             <ImageList gap={12} rowHeight={200}>
@@ -62,15 +52,15 @@ function RecipeCard() {
                         <ImageListItem
                             key={item.image_link}
                             sx={Recipe_content}
-                            onClick={() => handleClick(item.id)}
+                            onClick={() => navigate(`/detail/${item.id}`)}
                             data-recipe-id={item.recipe_id}
                         >
                             <img
                                 src={item.image_link}
-                                // srcSet={item.img}
                                 alt={item.recipe_name}
                                 sx={img}
                             />
+                           
                             <ImageListItemBar
                                 title={item.recipe_name}
                                 subtitle={item.name}
@@ -85,8 +75,12 @@ function RecipeCard() {
                                                             fontSize="large"
                                                             sx={FavIcon}
                                                             onClick={() => {
-                                                                setFav(!Fav);
-                                                                console.log(Fav);
+                                                                setFav(
+                                                                    !Fav
+                                                                );
+                                                                console.log(
+                                                                    Fav
+                                                                );
                                                             }}
                                                         />
                                                     }
@@ -95,19 +89,21 @@ function RecipeCard() {
                                                             fontSize="large"
                                                             sx={FavIconPink}
                                                             onClick={() => {
-                                                                setFav(!Fav);
-                                                                console.log(Fav);
+                                                                setFav(
+                                                                    !Fav
+                                                                );
+                                                                console.log(
+                                                                    Fav
+                                                                );
                                                             }}
                                                         />
                                                     }
                                                 />
                                             }
-                                        >
-                                        </FormControlLabel>
+                                        />
                                     </IconButton>
                                 }
-                            >
-                            </ImageListItemBar>
+                            />
                         </ImageListItem>
                     ))}
                 </Stack>
@@ -122,6 +118,30 @@ const RecipeCardroot = {
     width: "80vw",
     overflowX: "auto",
 };
+
+const MoreIconStyle = {
+    position: "absolute",
+    top: "0px",
+    right: "0px",
+    color: "#F8F8F8",
+    backgroundColor: "rgba(0, 0, 0, 0.35)",
+    fontSize: "40px",
+};
+
+const StyleMenuBar = {};
+
+const MenuText = {
+    fontWeight: "medium",
+    fontSize: "20px",
+    fontFamily: "Quicksand",
+    marginLeft: "5px",
+};
+
+const MenuBar = {
+    zIndex: "tooltip",
+};
+
+const MenuIconStyle = {};
 
 const Group_Recipe = {
     // display: "flex",
@@ -177,6 +197,7 @@ const Recipe_content = {
     textAlign: "center",
     width: { xs: "200px", sm: "250px" },
     height: "1000px",
+    zIndex: "modal",
     // boxShadow: 2,
 };
 
@@ -196,67 +217,3 @@ const FavIcon = {
 const FavIconPink = {
     color: "#F67280",
 };
-
-// Data
-
-// const itemData = [
-//     {
-//         img: "src/assets/Salad.jpg",
-//         title: "Salad",
-//         author: "@bkristastucchio",
-//         favourite: true,
-//     },
-
-//     {
-//         img: "src/assets/Pizza.png",
-//         title: "Pizza",
-//         author: "@rollelflex_graphy726",
-//         favourite: false,
-//     },
-//     {
-//         img: "src/assets/Hamburger.jpg",
-//         title: "Hamburger",
-//         author: "@helloimnik",
-//         favourite: true,
-//     },
-//     {
-//         img: "src/assets/Pancake.jpg",
-//         title: "Pancake",
-//         author: "@nolanissac",
-//         favourite: false,
-//     },
-// {
-//     img: "src/assets/Spaghetti.jpg",
-//     title: "Spaghetti",
-//     author: "@helloimnik",
-//     favourite: true,
-// },
-
-// {
-//     img: "src/assets/user.png",
-//     title: "user",
-//     author: "@helloimnik",
-//     favourite: true,
-// },
-
-// {
-//     img: "src/assets/Spaghetti.jpg",
-//     title: "Spaghettiiiiii",
-//     author: "@helloimnik",
-//     favourite: true,
-// },
-
-// {
-//     img: "src/assets/Spaghetti.jpg",
-//     title: "Spaghettiiiiii",
-//     author: "@helloimnik",
-//     favourite: true,
-// },
-
-// {
-//     img: "src/assets/Spaghetti.jpg",
-//     title: "Spaghettiiiiii",
-//     author: "@helloimnik",
-//     favourite: true,
-// },
-// ];

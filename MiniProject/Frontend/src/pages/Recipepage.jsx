@@ -2,6 +2,10 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import { Box, Typography, Divider } from "@mui/material";
 import RecipeCard from "../components/RecipeCard/RecipeCard";
+import RecipeCardBreakfast from "../components/RecipeCard/RecipeBreakfast";
+import RecipeCardLunch from "../components/RecipeCard/RecipeCardLunch";
+import RecipeCardDinner from "../components/RecipeCard/RecipeCardDinner";
+import RecipeCardGluterFree from "../components/RecipeCard/RecipeCardGlutenFree";
 
 function Recipepage() {
     return (
@@ -17,25 +21,25 @@ function Recipepage() {
 
                     <Box sx={Group_row}>
                         <Typography sx={Title}> Breakfast</Typography>
-                        <RecipeCard />
+                        <RecipeCardBreakfast />
                     </Box>
                     <Divider flexItem sx={DividerStyle} />
 
                     <Box sx={Group_row}>
                         <Typography sx={Title}> Lunch</Typography>
-                        <RecipeCard />
+                        <RecipeCardLunch />
                     </Box>
                     <Divider flexItem sx={DividerStyle} />
 
                     <Box sx={Group_row}>
                         <Typography sx={Title}> Dinner</Typography>
-                        <RecipeCard />
+                        <RecipeCardDinner />
                     </Box>
                     <Divider flexItem sx={DividerStyle} />
 
                     <Box sx={Group_row}>
                         <Typography sx={Title}> Gluten-Free</Typography>
-                        <RecipeCard />
+                        <RecipeCardGluterFree />
                     </Box>
                     <Divider flexItem sx={DividerStyle} />
 

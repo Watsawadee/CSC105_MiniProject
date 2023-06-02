@@ -38,7 +38,8 @@ function RecipeCard() {
 
     const fetchRecipes = () => {
         const token = localStorage.getItem('token');
-        axios.get("http://localhost:8000/sort/breakfast", {
+
+        axios.get("http://localhost:8000/sort/breakfast/", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -51,7 +52,7 @@ function RecipeCard() {
             .catch((error) => {
                 console.error("Error fetching recipe data:", error);
             });
-    };
+        };
 
 
     return (
@@ -80,26 +81,26 @@ function RecipeCard() {
                                         <FormControlLabel
                                             control={
                                                 <Checkbox
-                                                    icon={
-                                                        <FavoriteBorderIcon
-                                                            fontSize="large"
-                                                            sx={FavIcon}
-                                                            onClick={() => {
-                                                                setAgree(!agree);
-                                                                console.log(agree);
-                                                            }}
-                                                        />
-                                                    }
-                                                    checkedIcon={
-                                                        <FavoriteIcon
-                                                            fontSize="large"
-                                                            sx={FavIconPink}
-                                                            onClick={() => {
-                                                                setAgree(!agree);
-                                                                console.log(agree);
-                                                            }}
-                                                        />
-                                                    }
+                                                icon={
+                                                    <FavoriteBorderIcon
+                                                        fontSize="large"
+                                                        sx={FavIcon}
+                                                        onClick={() => {
+                                                            setFav(!Fav);
+                                                            console.log(Fav);
+                                                        }}
+                                                    />
+                                                }
+                                                checkedIcon={
+                                                    <FavoriteIcon
+                                                        fontSize="large"
+                                                        sx={FavIconPink}
+                                                        onClick={() => {
+                                                            setFav(!Fav);
+                                                            console.log(Fav);
+                                                        }}
+                                                    />
+                                                }
                                                 />
                                             }
                                         >

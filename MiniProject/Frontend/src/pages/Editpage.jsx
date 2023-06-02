@@ -7,9 +7,14 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import Upload_img from "../components/Upload_img";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Editpage() {
     // const [recipeList, setRecipelist] = useState([]);
+    let navigate = useNavigate();
+    const { recipeId } = useParams();
+    const recipe_id = recipeId;
     const [recipeData, setRecipeData] = useState({
         recipe_name: "",
         description: "",
@@ -34,7 +39,6 @@ function Editpage() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const recipe_id = "25"; // Replace "RECIPE_ID" with the actual recipe ID
         // console.log(recipeId);
 
         // Make a PUT request to the backend API
@@ -42,13 +46,10 @@ function Editpage() {
             .put(`http://localhost:8000/edit/${recipe_id}`, recipeData)
             .then((response) => {
                 console.log(response.data);
-                // Handle success response
-                // Show a success message, redirect, or perform any other actions
+                navigate("/account");
             })
             .catch((error) => {
                 console.error(error);
-                // Handle error response
-                // Show an error message or perform any other actions
             });
     };
 
@@ -61,14 +62,13 @@ function Editpage() {
     // };
 
     useEffect(() => {
-        const recipeId = "25"; // Replace with the actual recipe ID
-        // console.log(recipeId);
-        // Fetch the recipe data from the backend API
         axios
-            .get(`http://localhost:8000/recipes/${recipeId}`)
+            .get(`http://localhost:8000/recipes/${recipe_id}`)
             .then((response) => {
                 const recipe = response.data; // Assuming the response data is the recipe object
-                setRecipeData(recipe);
+                setRecipeData(recipe.data[0]);
+                console.log(recipe.data[0]);
+                console.log(recipe_id);
             })
             .catch((error) => {
                 console.error(error);
@@ -76,6 +76,7 @@ function Editpage() {
                 // Show an error message or perform any other actions
             });
     }, []);
+    
 
     return (
         <>

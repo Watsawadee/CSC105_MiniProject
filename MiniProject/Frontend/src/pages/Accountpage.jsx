@@ -1,31 +1,14 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 import { Box, Typography, Avatar, Divider, Button, Grid } from "@mui/material";
-import RecipeCard from "../components/RecipeCard/RecipeCard";
 import RecipeCardMyAccount from "../components/RecipeCard/RecipeCardMyAccount";
-import { Axios } from "axios";
+import RecipeCardFav from "../components/RecipeCard/RecipeCardFav";
 import { useState } from "react";
 
 function AccountPage({ onSignOut }) {
     const [recipeData, setRecipeData] = useState([]);
     const handleLogout = () => {
         onSignOut();
-        // fetch("/logout", {
-        //   method: "POST",
-        //   credentials: "include",
-        // })
-        //   .then((response) => {
-        //     if (response.ok) {
-        //       // Logout successful
-        //       // Redirect or perform any other actions
-        //     } else {
-        //       // Logout failed
-        //       console.error("Logout failed");
-        //     }
-        //   })
-        //   .catch((error) => {
-        //     console.error("Logout failed", error);
-        //   });
     };
 
     const handleDelete = (recipeId) => {
@@ -34,13 +17,9 @@ function AccountPage({ onSignOut }) {
             .delete(`http://localhost:8000/delete/${recipeId}`)
             .then((response) => {
                 console.log(response.data);
-                // Handle success response
-                // Show a success message, update the recipe list, or perform any other actions
             })
             .catch((error) => {
                 console.error(error);
-                // Handle error response
-                // Show an error message or perform any other actions
             });
     };
 
@@ -118,7 +97,7 @@ function AccountPage({ onSignOut }) {
                             <Typography sx={Title}>
                                 Your Favourite Recipe
                             </Typography>
-                            <RecipeCard />
+                            <RecipeCardFav/>
                         </Box>
                         <Divider flexItem sx={BigBreakLine} />
                     </Box>

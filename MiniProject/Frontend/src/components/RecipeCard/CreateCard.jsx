@@ -23,7 +23,7 @@ function CreateCard() {
     return (
         <Box>
             <ImageList gap={12} rowHeight={200}>
-                <Stack>
+                <Stack  sx={Group_Recipe} direction="row">
                     <ImageListItem
                         sx={Recipe_content}
                         onClick={() => handleClick()}
@@ -43,14 +43,15 @@ function CreateCard() {
 
 export default CreateCard;
 
+
 // const RecipeCardroot = {
 //     width: "80vw",
 //     overflowX: "auto",
 // };
 
-// const Group_Recipe = {
-//     gap: "16px",
-// };
+const Group_Recipe = {
+    gap: "16px",
+};
 
 // const Recipe_detail = {
 //     transition: "250ms all",

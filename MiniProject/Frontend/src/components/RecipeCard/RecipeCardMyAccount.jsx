@@ -1,16 +1,5 @@
-import React, { Component } from "react";
-import NavBar from "../NavBar";
-import {
-    Box,
-    Typography,
-    Grid,
-    Card,
-    ListItem,
-    Button,
-    Divider,
-    Stack,
-    Menu,
-} from "@mui/material";
+import React from "react";
+import { Box, Typography, Divider, Stack, Menu } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -32,17 +21,13 @@ import CreateCard from "../RecipeCard/CreateCard";
 
 function RecipeCard() {
     let navigate = useNavigate();
-    const handleClick = (id) => {
-        navigate(`/detail/${id}`);
-    };
     const [recipeData, setRecipeData] = useState([]);
-    const [Fav, setFav] = useState(false);
-
     const [anchorEl, setAnchorEl] = useState(null);
+    const [Fav, setFav] = useState(false);
+    const [selectedRecipeId, setSelectedRecipeId] = useState(null);
 
-    const handleMenuOpen = (event) => {
-        event.stopPropagation();
-        // event.preventDefault();
+    const handleMenuOpen = (id) => {
+        setSelectedRecipeId(id);
         setAnchorEl(event.currentTarget);
     };
 
@@ -50,38 +35,21 @@ function RecipeCard() {
         setAnchorEl(null);
     };
 
-    useEffect(() => {
-        fetchRecipes();
-    }, []);
-
-    const fetchRecipes = () => {
-        const token = localStorage.getItem("token"); // Assuming you store the token in local storage after login
-        axios
-            .get("http://localhost:8000/recipes/", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then((response) => {
-                // Update the recipe data state with the fetched data
-                setRecipeData(response.data.data);
-            })
-            .catch((error) => {
-                console.error("Error fetching recipe data:", error);
-            });
+    const handleEditRecipe = () => {
+        if (selectedRecipeId) {
+            console.log(selectedRecipeId);
+            navigate(`/edit/${selectedRecipeId}`);
+        }
     };
 
-    const handleDeleteRecipe = (recipeId) => {
-        // Make the HTTP request to delete the recipe
-        console.log("Recipe ID:", recipeId);
+    const handleDeleteRecipe = (id) => {
         axios
-            .delete(`/recipes/${recipeId}`)
+            .delete(`http://localhost:8000/delete/${id}`)
             .then((response) => {
                 if (response.data.success) {
                     console.log("Recipe deleted successfully");
-                    // Refresh the recipe list or perform any other necessary actions
-                    setRecipes(
-                        recipes.filter((recipe) => recipe.id !== recipeId)
+                    setRecipeData((prevData) =>
+                        prevData.filter((recipe) => recipe.id !== id)
                     );
                 } else {
                     console.log(
@@ -97,15 +65,37 @@ function RecipeCard() {
             });
     };
 
+    useEffect(() => {
+        fetchRecipes();
+    }, []);
+
+    const fetchRecipes = () => {
+        const token = localStorage.getItem("token");
+        const user_id = localStorage.getItem("userId");
+        axios
+            .get(`http://localhost:8000/recipes/user/${user_id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => {
+                setRecipeData(response.data.data);
+                // console.log(response.data.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching recipe data:", error);
+            });
+    };
+
     return (
         <Box sx={RecipeCardroot}>
-            <ImageList gap={12} row={5}>
+            <ImageList gap={12} rowHeight={200}>
                 <Stack sx={Group_Recipe} direction="row">
                     {recipeData.map((item) => (
                         <ImageListItem
                             key={item.image_link}
                             sx={Recipe_content}
-                            onClick={() => handleClick(item.id)}
+                            // onClick={() => navigate(`/detail/${item.id}`)}
                             data-recipe-id={item.recipe_id}
                         >
                             <img
@@ -115,32 +105,36 @@ function RecipeCard() {
                             />
                             <IconButton
                                 sx={MoreIconStyle}
-                                onClick={handleMenuOpen}
+                                onClick={() => handleMenuOpen(item.id)}
                             >
                                 <MoreHorizIcon />
                             </IconButton>
+
                             <Menu
                                 anchorEl={anchorEl}
                                 open={Boolean(anchorEl)}
                                 onClose={handleMenuClose}
                                 sx={MenuBar}
+                                // getContentAnchorEl={null}
+                                // anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+                                // transformOrigin={{vertical: 'top', horizontal: 'left'}}
                             >
                                 <MenuItem
-                                    onClick={(e) => handleClick("/edit")}
+                                    onClick={handleEditRecipe}
                                     sx={StyleMenuBar}
                                 >
                                     <EditIcon sx={MenuIconStyle} />
                                     <Typography sx={MenuText}> Edit</Typography>
                                 </MenuItem>
+
                                 <Divider />
                                 <MenuItem
-                                    onClick={(e) => handleClick("/account")}
+                                    onClick={() => handleDeleteRecipe(item.id)}
                                     sx={StyleMenuBar}
                                 >
                                     <DeleteIcon sx={MenuIconStyle} />
                                     <Typography
                                         sx={MenuText}
-                                        onClick={() => onDelete(item.recipe.id)}
                                         variant="outlined"
                                         color="error"
                                     >
@@ -162,9 +156,7 @@ function RecipeCard() {
                                                             fontSize="large"
                                                             sx={FavIcon}
                                                             onClick={() => {
-                                                                setFav(
-                                                                    !Fav
-                                                                );
+                                                                setFav(!Fav);
                                                                 console.log(
                                                                     Fav
                                                                 );
@@ -176,9 +168,7 @@ function RecipeCard() {
                                                             fontSize="large"
                                                             sx={FavIconPink}
                                                             onClick={() => {
-                                                                setFav(
-                                                                    !Fav
-                                                                );
+                                                                setFav(!Fav);
                                                                 console.log(
                                                                     Fav
                                                                 );
@@ -232,33 +222,7 @@ const MenuBar = {
 const MenuIconStyle = {};
 
 const Group_Recipe = {
-    // display: "flex",
-    // justifyContent: "flex-start",
-    // flexDirection: "row",
-    // overflowX: "auto",
-
-    // whiteSpace: "nowrap",
-    // flexWrap: 'nowrap',
-
-    // gridTemplateColumns: "repeat(200px, 1fr)",
-    // gridGap: "calc((100vw - 60px)/100)",
-
-    // display: "grid",
-    // gridAutoFlow: "column",
-    // overflowX: "auto",
-    // webkitOverflowScrolling: "touch",
     gap: "16px",
-    // gridAutoColumns: "200",
-    // minHeight: "1vh",
-
-    // gridAutoColumns: "minmax(0px, 1fr)",
-    // gridGap: "10px",
-    // padding: "0 20px",
-    // // gridTemplateColumns: "repeat(auto-fill, minmax(15em, 1fr))",
-    // // gridAutoColumns: "minmax(15em, 1fr)",
-
-    // alignItems: "center",
-    // backgroundColor: "aqua",
 };
 
 const Recipe_detail = {
@@ -283,7 +247,7 @@ const Recipe_content = {
     borderRadius: "8px",
     position: "relative",
     textAlign: "center",
-    width: { xs: "200px", sm: "250px" },
+    width: { xs: "200px", sm: "320px" },
     height: "1000px",
     zIndex: "modal",
     // boxShadow: 2,

@@ -3,27 +3,6 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 
 module.exports = (connection) => {
-    // function authenticateToken(req, res, next) {
-    //     const token = req.cookies.token;
-
-    //     if (!token) {
-    //         return res
-    //             .status(401)
-    //             .json({ success: false, message: "Not authorized" });
-    //     }
-
-    //     jwt.verify(token, secretKey, (err, decoded) => {
-    //         if (err) {
-    //             return res
-    //                 .status(403)
-    //                 .json({ success: false, message: "Invalid token" });
-    //         }
-
-    //         // Store the decoded token in the request object for later use
-    //         req.user = decoded;
-    //         next();
-    //     });
-    // }
 
     router.delete("/:recipe_id", (req, res) => {
         const recipeId = req.params.recipe_id;
