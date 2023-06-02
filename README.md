@@ -90,8 +90,6 @@ Example
 
 ` 200` register success
 
-
-
 ### Create New Recipe
 
 #### URL
@@ -148,9 +146,6 @@ Example
 ###### Status Code
 
 ` 200` create recipe success
-
-
-
 
 ### Edit Recipe
 
@@ -209,20 +204,18 @@ Example
 
 ` 200` edit recipe success
 
-
-
 ### Delete Recipe
 
 #### URL
 
 `DELETE /delete/recipe_id`
 
-
 #### Request Body
+
 No Request Body
 
-
 ### Success
+
 ```
     {
         "success": true,
@@ -236,32 +229,29 @@ No Request Body
 
 ` 200` success
 
-
-
 ### Recipes
 
 #### URL
 
 `GET /recipes`
 
-
 #### Request Body
+
 No Request Body
 
-
 ### Success
-
 
 ###### Status Code
 
 ` 200` success
 
 Respnse
-|   Parameter   |      Type       | Description |
+| Parameter | Type | Description |
 | ------------- | :-------------: | :---------- |
-| no parameter  | Array of recipe | all recipe  |
+| no parameter | Array of recipe | all recipe |
 
 #### Recipe
+
 the recipe object
 
 | Parameter    |  Type   | Description |
@@ -278,19 +268,18 @@ the recipe object
 | Dinner       | boolean | email       |
 | image_link   | string  | password    |
 
-
 Example
 
 {
-  "recipe_name": "Spaghetti Bolognese",
-  "description": "Classic Italian pasta dish with meat sauce",
-  "cook_time": 45,
-  "is_favourite": false,
-  "rating": 4.5,
-  "likes": 10,
-  "Breakfast": false,
-  "lunch": true,
-  "Gluten_Free": false,
-  "Dinner": true,
-  "image_link": "https://example.com/spaghetti_bolognese.jpg"
+"recipe_name": "Spaghetti Bolognese",
+"description": "Classic Italian pasta dish with meat sauce",
+"cook_time": 45,
+"is_favourite": false,
+"rating": 4.5,
+"likes": 10,
+"Breakfast": false,
+"lunch": true,
+"Gluten_Free": false,
+"Dinner": true,
+"image_link": "https://example.com/spaghetti_bolognese.jpg"
 }
