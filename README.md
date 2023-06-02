@@ -269,8 +269,9 @@ the recipe object
 | image_link   | string  | password    |
 
 Example
-
+```
 {
+<<<<<<< HEAD
 "recipe_name": "Spaghetti Bolognese",
 "description": "Classic Italian pasta dish with meat sauce",
 "cook_time": 45,
@@ -283,3 +284,20 @@ Example
 "Dinner": true,
 "image_link": "https://example.com/spaghetti_bolognese.jpg"
 }
+=======
+  "recipe_name": "Spaghetti Bolognese",
+  "description": "Classic Italian pasta dish with meat sauce",
+  "cook_time": 45,
+  "is_favourite": false,
+  "rating": 4.5,
+  "likes": 10,
+  "Breakfast": false,
+  "lunch": true,
+  "Gluten_Free": false,
+  "Dinner": true,
+  "image_link": "https://example.com/spaghetti_bolognese.jpg"
+}
+
+
+```
+>>>>>>> 86205fb1c200fc2f098725173610fa2282fa71d4
