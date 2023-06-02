@@ -5,7 +5,7 @@ const router = express.Router();
 
 module.exports = (connection) => {
     router.put("/:recipe_id", (req, res) => {
-      const recipe_id = req.params.recipe_id; // Get the recipe_id from the request params
+      const recipe_id = req.params.recipe_id;
   
       const {
         recipe_name,
@@ -20,8 +20,7 @@ module.exports = (connection) => {
         Dinner,
         image_link,
       } = req.body;
-  
-      // Assuming you have a 'recipes' table in your MySQL database
+
       const sqlUpdate =
         "UPDATE recipe SET recipe_name = ?, description = ?, cook_time = ?, is_favourite = ?, rating = ?, likes = ?, Breakfast = ?, lunch = ?, Gluten_Free = ?, Dinner = ?, image_link = ? WHERE id = ?";
       connection.query(

@@ -17,13 +17,16 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import Rating from "@mui/material/Rating";
 
 function RecipeDetailpage() {
     const [itemData, setItemData] = useState([]);
+    const { recipeId } = useParams();
+    const recipe_id = recipeId;
 
     useEffect(() => {
         axios
-            .get("http://localhost:8000/recipes/:recipeId")
+            .get(`http://localhost:8000/recipes/${recipe_id}`)
             .then((response) => {
                 setItemData(response.data.data);
                 // console.log(response.data.data);
@@ -45,51 +48,33 @@ function RecipeDetailpage() {
                         {/* <h1>Recipe Detail page</h1> */}
                         <Box sx={ImageBox}>
                             <Carousel autoPlay interval={3000} infiniteLoop>
-                                {itemData.length > 0 && itemData.map((item) => (
-                                    <ImageListItem key={item.id} sx={Image}>
-                                        <img
-                                            src={item.image_link}
-                                            style={{
-                                                width: "100%",
-                                                height: "100%",
-                                                objectFit: "cover",
-                                            }}
-                                        />
-                                    </ImageListItem>
-                                ))}
+                                {itemData.length > 0 &&
+                                    itemData.map((item) => (
+                                        <ImageListItem key={item.id} sx={Image}>
+                                            <img
+                                                src={item.image_link}
+                                                alt={item.recipe_name}
+                                                style={{             
+                                                    width: "100%",
+                                                    height: "100%",
+                                                    objectFit: "cover",
+                                                    maxWidth: "600px",
+                                                }}
+                                            />
+                                        </ImageListItem>
+                                    ))}
                             </Carousel>
-
-                            {/* <IconButton>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            icon={
-                                                <FavoriteBorderIcon
-                                                    fontSize="large"
-                                                    sx={FavIcon}
-                                                />
-                                            }
-                                            checkedIcon={
-                                                <FavoriteIcon
-                                                    fontSize="large"
-                                                    sx={FavIconPink}
-                                                />
-                                            }
-                                        />
-                                    }
-                                ></FormControlLabel>
-                            </IconButton> */}
                         </Box>
                     </Grid>
 
                     <Grid item xs={6}>
                         <Box sx={Detail}>
-                            {/* {itemData.map((item, index) => (
-                                <Box key={index}> */}
+                            {itemData.map((item, index) => (
+                                <Box key={index}>
                                     <Box>
                                         <Typography sx={Title}>
-                                            Italian Salad
-                                            {/* {item.recipe_name} */}
+                                            {/* Italian Salad */}
+                                            {item.recipe_name}
                                         </Typography>
                                         <Box
                                             sx={{
@@ -97,29 +82,35 @@ function RecipeDetailpage() {
                                                 display: "flex",
                                             }}
                                         >
-                                            <StarIcon /> <StarIcon /> <StarIcon />
-                                            <StarHalfIcon /> <StarBorderIcon />
+                                            <Rating
+                                                name="half-rating-read"
+                                                defaultValue={item.rating}
+                                                // precision={}
+                                                readOnly
+                                            />
                                             <Typography
                                                 sx={{ marginRight: "20px" }}
                                             >
-                                                (18)
+                                                ({item.likes})
                                             </Typography>
                                         </Box>
                                         <Typography sx={Description}>
-                                            {/* {item.description} */}
-                                            This simple Italian salad is the only
+                                            {item.description}
+                                            {/* This simple Italian salad is the only
                                             side salad recipe you need. It fits
                                             perfectly with any pasta dish and finds
                                             good company alongside a whole roasted
-                                            chicken or delicate fish dinner.
+                                            chicken or delicate fish dinner. */}
                                         </Typography>
                                     </Box>
 
                                     <Box sx={DetailRight}>
-                                        <Typography sx={topic}>Directions</Typography>
+                                        <Typography sx={topic}>
+                                            Directions
+                                        </Typography>
                                         <Box sx={text}>
-                                            {/* {item.direction} */}
-                                            <ol>
+                                            {item.direction}
+                                            {/* <ol>
                                                 <li>
                                                     Grab a jar. Add the dressing
                                                     ingredients, secure the lid, and
@@ -141,9 +132,9 @@ function RecipeDetailpage() {
                                                     many croutons as you'd like on your
                                                     perfect Italian side salad!
                                                 </li>
-                                            </ol>
+                                            </ol> */}
                                         </Box>
-                                        
+
                                         <Box
                                             sx={{
                                                 display: "flex",
@@ -164,13 +155,13 @@ function RecipeDetailpage() {
                                                     Ingredients
                                                 </Typography>
                                                 <Typography sx={text}>
-                                                    {/* {item.ingredient} */}
-                                                    <li>Garlic powder</li>
+                                                    {item.ingredient}
+                                                    {/* <li>Garlic powder</li>
                                                     <li>Dried oregano</li>
                                                     <li>Dries basil</li>
                                                     <li>Salt</li>
                                                     <li>Extra virgin olive oil</li>
-                                                    <li>Red wine vinegar</li>
+                                                    <li>Red wine vinegar</li> */}
                                                 </Typography>
                                             </Box>
                                             <Box
@@ -183,18 +174,18 @@ function RecipeDetailpage() {
                                                     Tools
                                                 </Typography>
                                                 <Typography sx={text}>
-                                                    {/* {item.tools} */}
-                                                    <li>Measuring spoons</li>
+                                                    {item.tool}
+                                                    {/* <li>Measuring spoons</li>
                                                     <li>A Jar</li>
                                                     <li>Salad bowl</li>
-                                                    <li>Salad tongs</li>
+                                                    <li>Salad tongs</li> */}
                                                 </Typography>
                                             </Box>
                                         </Box>
                                     </Box>
-                                {/* </Box> */}
-                            {/* ))} */}
-                            </Box>
+                                </Box>
+                            ))}
+                        </Box>
                     </Grid>
                 </Box>
             </Grid>
@@ -224,11 +215,14 @@ const ImageBox = {
 };
 
 const Image = {
+    display: "flex",
     width: "100%",
     height: "100%",
     maxHeight: "400px",
     objectFit: "cover",
     overFlow: "hidden",
+    justifyContent: "center",
+    alignItems: "center"
 };
 
 const Detail = {

@@ -10,209 +10,250 @@ import Upload_img from "../components/Upload_img";
 import { useNavigate } from "react-router-dom";
 
 function CreatePage() {
-  let navigate = useNavigate();
-  const [recipeData, setRecipeData] = useState({
-    recipe_name: "",
-    description: "",
-    cook_time: 0,
-    is_favourite: false,
-    rating: 0,
-    likes: 0,
-    Breakfast: false,
-    lunch: false,
-    Gluten_Free: false,
-    Dinner: false,
-    image_link: "",
-  });
+    let navigate = useNavigate();
+    const [recipeData, setRecipeData] = useState({
+        recipe_name: "",
+        description: "",
+        cook_time: 0,
+        is_favourite: false,
+        rating: 0,
+        likes: 0,
+        Breakfast: false,
+        lunch: false,
+        Gluten_Free: false,
+        Dinner: false,
+        image_link: "",
+    });
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setRecipeData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setRecipeData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
 
-  const validateForm = () => {
-    if(!recipeData.recipe_name || !recipeData.recipe_name.trim()){
-      console.log("Fill the name");
-      return false;
-    }
-    return true;
-  }
-  const handleSubmit = (event) => {
-    if(!validateForm()) return;
+    const handleInputChangeCheckbox = (event) => {
+        const { name, value, type, checked } = event.target;
 
-    event.preventDefault();
-    const user_id = localStorage.getItem("userId");
+        if (type === "checkbox") {
+            setRecipeData((prevData) => ({
+                ...prevData,
+                [name]: checked ? 1 : 0,
+            }));
+        } else {
+            setRecipeData((prevData) => ({
+                ...prevData,
+                [name]: value,
+            }));
+        }
+    };
 
-    // const user_id = "5"; // Replace "USER_ID" with the actual user ID
+    const validateForm = () => {
+        if (!recipeData.recipe_name || !recipeData.recipe_name.trim()) {
+            console.log("Fill the name");
+            return false;
+        }
+        return true;
+    };
+    const handleSubmit = (event) => {
+        if (!validateForm()) return;
 
-    // Make a POST request to the backend API
-    axios
-      .post(`http://localhost:8000/create/${user_id}`, recipeData)
-      .then((response) => {
-        console.log(response.data);
-        navigate("/account");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+        event.preventDefault();
+        const user_id = localStorage.getItem("userId");
 
-  return (
-    <>
-      <NavBar />
-      <Box sx={Create}>
-        <Typography sx={Header}>Create Your Own Recipe </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: { xs: "column", md: "row" },
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Box sx={{ justifyContent: "center", alignItems: "center", margin: "20px", marginLeft: "0px" }}>
-            <Upload_img />
-          </Box>
+        // const user_id = "5"; // Replace "USER_ID" with the actual user ID
 
-          <Box sx={detail}>
-            <Box>
-              <Box>
+        // Make a POST request to the backend API
+        axios
+            .post(`http://localhost:8000/create/${user_id}`, recipeData)
+            .then((response) => {
+                console.log(response.data);
+                navigate("/account");
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    return (
+        <>
+            <NavBar />
+            <Box sx={Create}>
+                <Typography sx={Header}>Create Your Own Recipe </Typography>
                 <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: {
-                      xs: "column",
-                      md: "row",
-                    },
-                    justifyContent: {
-                      xs: "flex-start",
-                      md: "space-between",
-                    },
-                  }}
+                    sx={{
+                        display: "flex",
+                        flexDirection: { xs: "column", md: "row" },
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
                 >
-                  <Box>
-                    <Typography sx={Text}>
-                      Name
-                    </Typography>
-                    <TextField
-                      sx={input_box_name}
-                      required
-                      placeholder="Name of dish"
-                      name="recipe_name"
-                      value={recipeData.recipe_name}
-                      onChange={handleInputChange}
-                    />
-                  </Box>
-                  <Box>
-                    <Typography sx={Text_time}>
-                      Cook Time
-                    </Typography>
-                    <TextField
-                      sx={input_box_time}
-                      required
-                      type="number"
-                      min="0"
-                      step="1"
-                      placeholder="Minutes"
-                      name="cook_time"
-                      value={recipeData.cook_time}
-                      onChange={handleInputChange}
-                    />
-                  </Box>
-                </Box>
-                <Box>
-                  <Typography sx={Text}>
-                    Description
-                  </Typography>
-                  <TextField
-                    sx={input_box}
-                    required
-                    multiline
-                    placeholder="Description"
-                    name="description"
-                    value={recipeData.description}
-                    onChange={handleInputChange}
-                  />
-                </Box>
-              </Box>
-              <Box>
-                <Typography sx={Text}>Directions</Typography>
-                <TextField
-                  sx={input_box}
-                  required
-                  multiline
-                  placeholder="Directions"
-                />
-              </Box>
-              <Box>
-                <Typography sx={Text}>Ingredients</Typography>
-                <TextField
-                  sx={input_box}
-                  required
-                  multiline
-                  placeholder="Ingredients"
-                />
-              </Box>
+                    <Box
+                        sx={{
+                            justifyContent: "center",
+                            alignItems: "center",
+                            margin: "20px",
+                            marginLeft: "0px",
+                        }}
+                    >
+                        <Upload_img />
+                    </Box>
 
-              <Box>
-                <Typography sx={Text}>Tools</Typography>
-                <TextField
-                  sx={input_box}
-                  required
-                  multiline
-                  placeholder="Tools"
-                />
-              </Box>
-              <Box>
-                <FormControlLabel
-                  control={
-                    <Checkbox sx={{ color: "#6C5B7B" }} />
-                  }
-                  label="Breakfast"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox sx={{ color: "#6C5B7B" }} />
-                  }
-                  label="Lunch"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox sx={{ color: "#6C5B7B" }} />
-                  }
-                  label="Dinner"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox sx={{ color: "#6C5B7B" }} />
-                  }
-                  label="Gluten-Free"
-                />
-              </Box>
+                    <Box sx={detail}>
+                        <Box>
+                            <Box>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: {
+                                            xs: "column",
+                                            md: "row",
+                                        },
+                                        justifyContent: {
+                                            xs: "flex-start",
+                                            md: "space-between",
+                                        },
+                                    }}
+                                >
+                                    <Box>
+                                        <Typography sx={Text}>Name</Typography>
+                                        <TextField
+                                            sx={input_box_name}
+                                            required
+                                            placeholder="Name of dish"
+                                            name="recipe_name"
+                                            value={recipeData.recipe_name}
+                                            onChange={handleInputChange}
+                                        />
+                                    </Box>
+                                    <Box>
+                                        <Typography sx={Text_time}>
+                                            Cook Time
+                                        </Typography>
+                                        <TextField
+                                            sx={input_box_time}
+                                            required
+                                            type="number"
+                                            min="0"
+                                            step="1"
+                                            placeholder="Minutes"
+                                            name="cook_time"
+                                            value={recipeData.cook_time}
+                                            onChange={handleInputChange}
+                                        />
+                                    </Box>
+                                </Box>
+                                <Box>
+                                    <Typography sx={Text}>
+                                        Description
+                                    </Typography>
+                                    <TextField
+                                        sx={input_box}
+                                        required
+                                        multiline
+                                        placeholder="Description"
+                                        name="description"
+                                        value={recipeData.description}
+                                        onChange={handleInputChange}
+                                    />
+                                </Box>
+                            </Box>
+                            <Box>
+                                <Typography sx={Text}>Directions</Typography>
+                                <TextField
+                                    sx={input_box}
+                                    required
+                                    multiline
+                                    placeholder="Directions"
+                                />
+                            </Box>
+                            <Box>
+                                <Typography sx={Text}>Ingredients</Typography>
+                                <TextField
+                                    sx={input_box}
+                                    required
+                                    multiline
+                                    placeholder="Ingredients"
+                                />
+                            </Box>
+
+                            <Box>
+                                <Typography sx={Text}>Tools</Typography>
+                                <TextField
+                                    sx={input_box}
+                                    required
+                                    multiline
+                                    placeholder="Tools"
+                                />
+                            </Box>
+                            <Box>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            sx={{ color: "#6C5B7B" }}
+                                            checked={recipeData.Breakfast === 1}
+                                            name="Breakfast"
+                                            onChange={handleInputChangeCheckbox}
+                                        />
+                                    }
+                                    label="Breakfast"
+                                />
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            sx={{ color: "#6C5B7B" }}
+                                            checked={recipeData.lunch === 1}
+                                            name="lunch"
+                                            onChange={handleInputChangeCheckbox}
+                                        />
+                                    }
+                                    label="Lunch"
+                                />
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            sx={{ color: "#6C5B7B" }}
+                                            checked={recipeData.Dinner === 1}
+                                            name="Dinner"
+                                            onChange={handleInputChangeCheckbox}
+                                        />
+                                    }
+                                    label="Dinner"
+                                />
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            sx={{ color: "#6C5B7B" }}
+                                            checked={
+                                                recipeData.Gluten_Free === 1
+                                            }
+                                            name="Gluten_Free"
+                                            onChange={handleInputChangeCheckbox}
+                                        />
+                                    }
+                                    label="Gluten-Free"
+                                />
+                            </Box>
+                        </Box>
+
+                        <Button
+                            onClick={handleSubmit}
+                            type="submit"
+                            fullWidth
+                            sx={Submit}
+                            noValidate
+                        >
+                            save
+                        </Button>
+                    </Box>
+                </Box>
             </Box>
-
-            <Button
-              onClick={handleSubmit}
-              type="submit"
-              fullWidth
-              sx={Submit}
-              noValidate
-            >
-              save
-            </Button>
-          </Box>
-
-        </Box>
-      </Box>
-    </>
-  );
+        </>
+    );
 }
 
 export default CreatePage;
-
 
 // Style
 
@@ -297,7 +338,7 @@ const Text_time = {
 };
 
 const Submit = {
-    display:"flex",
+    display: "flex",
     color: "#6C5B7B",
     fontFamily: "Quicksand",
     fontWeight: "Bold",

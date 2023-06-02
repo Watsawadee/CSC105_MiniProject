@@ -60,37 +60,3 @@ module.exports = (connection) => {
 
   return router;
 };
-
-// const express = require("express");
-// const bcrypt = require("bcrypt");
-// const mysql = require("mysql2");
-
-// const router = express.Router();
-
-// module.exports = (connection) => {
-//   router.post("/", async (req, res) => {
-//     try {
-//       const { name, email, password } = req.body;
-  
-//       // Hash the password
-//       const hashedPassword = await bcrypt.hash(password, 10);
-  
-//       // Insert user into the database
-//       const query = `INSERT INTO user (name, email, password) VALUES (?, ?, ?)`;
-//       connection.query(query, [name, email, hashedPassword], (err, result) => {
-//         if (err) {
-//           console.error('Error signing up:', err);
-//           res.status(500).json({ error: 'Internal server error' });
-//         } else {
-//           res.status(200).json({ message: 'Signup successful' });
-//         }
-//       });
-//     } catch (error) {
-//       console.error('Error signing up:', error);
-//       res.status(500).json({ error: 'Internal server error' });
-//     }
-
-//   });
-
-//   return router;
-// };

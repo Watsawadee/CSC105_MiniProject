@@ -36,6 +36,13 @@ function Editpage() {
             [name]: value,
         }));
     };
+    const handleInputChangeCheckbox = (event) => {
+        const { name, checked } = event.target;
+        setRecipeData((prevData) => ({
+            ...prevData,
+            [name]: checked ? 1 : 0,
+        }));
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -76,7 +83,6 @@ function Editpage() {
                 // Show an error message or perform any other actions
             });
     }, []);
-    
 
     return (
         <>
@@ -179,7 +185,6 @@ function Editpage() {
                                     placeholder="Ingredients"
                                 />
                             </Box>
-
                             <Box>
                                 <Typography sx={Text}>Tools</Typography>
                                 <TextField
@@ -192,25 +197,61 @@ function Editpage() {
                             <Box>
                                 <FormControlLabel
                                     control={
-                                        <Checkbox sx={{ color: "#6C5B7B" }} />
+                                        <Checkbox
+                                            sx={{
+                                                color: recipeData.Breakfast
+                                                    ? "#6C5B7B"
+                                                    : "",
+                                            }}
+                                            checked={recipeData.Breakfast}
+                                            onChange={handleInputChangeCheckbox}
+                                            name="Breakfast"
+                                        />
                                     }
                                     label="Breakfast"
                                 />
                                 <FormControlLabel
                                     control={
-                                        <Checkbox sx={{ color: "#6C5B7B" }} />
+                                        <Checkbox
+                                            sx={{
+                                                color: recipeData.lunch
+                                                    ? "#6C5B7B"
+                                                    : "",
+                                            }}
+                                            checked={recipeData.lunch}
+                                            onChange={handleInputChangeCheckbox}
+                                            name="lunch"
+                                        />
                                     }
                                     label="Lunch"
                                 />
                                 <FormControlLabel
                                     control={
-                                        <Checkbox sx={{ color: "#6C5B7B" }} />
+                                        <Checkbox
+                                            sx={{
+                                                color: recipeData.Dinner
+                                                    ? "#6C5B7B"
+                                                    : "",
+                                            }}
+                                            checked={recipeData.Dinner}
+                                            onChange={handleInputChangeCheckbox}
+                                            name="Dinner"
+                                        />
                                     }
                                     label="Dinner"
                                 />
                                 <FormControlLabel
                                     control={
-                                        <Checkbox sx={{ color: "#6C5B7B" }} />
+                                        <Checkbox
+                                            sx={{
+                                                color: recipeData.Gluten_Free
+                                                    ? "#6C5B7B"
+                                                    : "",
+                                            }}
+                                            checked={recipeData.Gluten_Free}
+                                            onChange={handleInputChangeCheckbox}
+                                            name="Gluten_Free"
+                                        />
                                     }
                                     label="Gluten-Free"
                                 />

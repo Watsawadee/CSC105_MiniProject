@@ -7,10 +7,6 @@ module.exports = (connection) => {
     router.delete("/:recipe_id", (req, res) => {
         const recipeId = req.params.recipe_id;
 
-        // Check if the user is authorized to delete the recipe
-        // Implement your authorization logic here
-
-        // Delete the recipe from the database
         const sqlDelete = "DELETE FROM recipe WHERE id = ?";
         connection.query(sqlDelete, [recipeId], (err, result) => {
             if (err) {
@@ -18,7 +14,6 @@ module.exports = (connection) => {
                 res.sendStatus(500);
             } else {
                 if (result.affectedRows === 0) {
-                    // No rows were affected, recipe does not exist
                     res.status(404).json({
                         success: false,
                         message: "Recipe not found",

@@ -29,7 +29,7 @@ function RecipeCard() {
       const fetchRecipes = () => {
         const token = localStorage.getItem("token");
         const user_id = localStorage.getItem("userId");
-        console.log(user_id);
+        // console.log(user_id);
         axios
           .get(`http://localhost:8000/recipes/Fav/${user_id}`, {
             headers: {

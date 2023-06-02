@@ -4,15 +4,40 @@ import { Box, Typography, Avatar, Divider, Button, Grid } from "@mui/material";
 import RecipeCardMyAccount from "../components/RecipeCard/RecipeCardMyAccount";
 import RecipeCardFav from "../components/RecipeCard/RecipeCardFav";
 import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
 function AccountPage({ onSignOut }) {
     const [recipeData, setRecipeData] = useState([]);
+    useEffect(() => {
+        fetchRecipes();
+    }, []);
+
+    const fetchRecipes = () => {
+        const token = localStorage.getItem("token");
+        const user_id = localStorage.getItem("userId");
+        // console.log(user_id);
+        axios
+            .get(`http://localhost:8000/recipes/Fav/${user_id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => {
+                setRecipeData(response.data.data);
+                // console.log(response.data.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching recipe data:", error);
+            });
+    };
+
     const handleLogout = () => {
         onSignOut();
     };
 
     const handleDelete = (recipeId) => {
-      console.log(recipeId);
+        // console.log(recipeId);
         axios
             .delete(`http://localhost:8000/delete/${recipeId}`)
             .then((response) => {
@@ -39,48 +64,65 @@ function AccountPage({ onSignOut }) {
                 </Grid>
 
                 <Grid item xs={12} md={7} sx={Top}>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
-                    >
-                        <Typography sx={Header}>
-                            Hello, Mrs. Anna Marie
-                        </Typography>
-                    </Box>
-                    <Box sx={Group_detail}>
-                        <Box sx={Detail}>
-                            <Typography sx={Count}>359</Typography>
-                            <Typography sx={Count_Classifier}>
-                                Recipes
-                            </Typography>
-                        </Box>
-                        <Divider
-                            orientation="vertical"
-                            flexItem
-                            sx={VerticalLine}
-                        />
+                    {recipeData.map((item) => (
+                        <Box>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}
+                            >
+                                <Typography sx={Header}>
+                                    
+                                    Hello, Mrs.Anna Marie
+                                    {/* {item.recipe_name} */}
+                                </Typography>
+                            </Box>
+                            <Box sx={Group_detail}>
+                                <Box sx={Detail}>
+                                    <Typography sx={Count}>
+                                        359
+                                        {/* {item.id} */}
+                                    </Typography>
+                                    <Typography sx={Count_Classifier}>
+                                        Recipes
+                                    </Typography>
+                                </Box>
+                                <Divider
+                                    orientation="vertical"
+                                    flexItem
+                                    sx={VerticalLine}
+                                />
 
-                        <Box sx={Detail}>
-                            <Typography sx={Count}>12K</Typography>
-                            <Typography sx={Count_Classifier}>Views</Typography>
-                        </Box>
+                                <Box sx={Detail}>
+                                    <Typography sx={Count}>
+                                        12K
+                                        {/* {item.id} */}
+                                    </Typography>
+                                    <Typography sx={Count_Classifier}>
+                                        Views
+                                    </Typography>
+                                </Box>
 
-                        <Divider
-                            orientation="vertical"
-                            flexItem
-                            sx={VerticalLine}
-                        />
+                                <Divider
+                                    orientation="vertical"
+                                    flexItem
+                                    sx={VerticalLine}
+                                />
 
-                        <Box sx={Detail}>
-                            <Typography sx={Count}>18</Typography>
-                            <Typography sx={Count_Classifier}>
-                                Favourite
-                            </Typography>
+                                <Box sx={Detail}>
+                                    <Typography sx={Count}>
+                                        18
+                                        {/* {item.id} */}
+                                    </Typography>
+                                    <Typography sx={Count_Classifier}>
+                                        Favourite
+                                    </Typography>
+                                </Box>
+                            </Box>
                         </Box>
-                    </Box>
+                    ))}
                 </Grid>
 
                 <Grid item xs={12}>
@@ -88,8 +130,8 @@ function AccountPage({ onSignOut }) {
                         <Divider flexItem sx={BigBreakLine} />
                         <Box sx={Group_row}>
                             <Typography sx={Title}> Your Own Recipe</Typography>
-        
-                            <RecipeCardMyAccount onDelete={handleDelete}/>
+
+                            <RecipeCardMyAccount onDelete={handleDelete} />
                         </Box>
 
                         <Divider flexItem sx={Line} />
@@ -97,7 +139,7 @@ function AccountPage({ onSignOut }) {
                             <Typography sx={Title}>
                                 Your Favourite Recipe
                             </Typography>
-                            <RecipeCardFav/>
+                            <RecipeCardFav />
                         </Box>
                         <Divider flexItem sx={BigBreakLine} />
                     </Box>

@@ -26,7 +26,7 @@ function RecipeCard() {
     const [Fav, setFav] = useState(false);
     const [selectedRecipeId, setSelectedRecipeId] = useState(null);
 
-    const handleMenuOpen = (id) => {
+    const handleMenuOpen = (event, id) => {
         setSelectedRecipeId(id);
         setAnchorEl(event.currentTarget);
     };
@@ -62,6 +62,9 @@ function RecipeCard() {
                     "An error occurred while deleting the recipe:",
                     error
                 );
+            })
+            .finally(() => {
+                setAnchorEl(null);
             });
     };
 
@@ -95,7 +98,11 @@ function RecipeCard() {
                         <ImageListItem
                             key={item.image_link}
                             sx={Recipe_content}
-                            // onClick={() => navigate(`/detail/${item.id}`)}
+                            onClick={() => {
+                                if (!anchorEl) {
+                                    navigate(`/detail/${item.id}`);
+                                }
+                            }}
                             data-recipe-id={item.recipe_id}
                         >
                             <img
@@ -105,7 +112,10 @@ function RecipeCard() {
                             />
                             <IconButton
                                 sx={MoreIconStyle}
-                                onClick={() => handleMenuOpen(item.id)}
+                                onClick={(event) =>{
+                                    event.stopPropagation();
+                                    handleMenuOpen(event, item.id);
+                                }}
                             >
                                 <MoreHorizIcon />
                             </IconButton>
@@ -115,9 +125,15 @@ function RecipeCard() {
                                 open={Boolean(anchorEl)}
                                 onClose={handleMenuClose}
                                 sx={MenuBar}
-                                // getContentAnchorEl={null}
-                                // anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
-                                // transformOrigin={{vertical: 'top', horizontal: 'left'}}
+                                anchorOrigin={{
+                                    vertical: "top",
+                                    horizontal: "right",
+                                }}
+                                transformOrigin={{
+                                    vertical: "top",
+                                    horizontal: "right",
+                                }}
+                                getContentAnchorEl={null}
                             >
                                 <MenuItem
                                     onClick={handleEditRecipe}
